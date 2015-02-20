@@ -20,7 +20,28 @@
 
 \begin{document}
 \section{Description}
-We are planing to model the interaction of a bore and a free-standing coastal structure with Clawpack in 2D. In a first step we plan to model the wave tank followed by placing the coastal structure, a square column in the domain. We would like to compare the results with experimental results by Halld\'or \'Arnason.
+We are planing to model the interaction of a bore and a free-standing coastal structure with Clawpack in 2D.
+Simulation work can be compared to benchmark experiment by Halld\'or \'Arnason.
+The benchmark experiment was conducted with a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge the column located downstream.
+We are going to simulate 2 cases in the experiment. The 1st case purely generated the single bore, the 2nd case generated the bore to impinge the column with one side facing the flow.
+\par
+In 1st case, wave height and streamwise velocity, U, at different depth, at where the center of column should located should be measured. In the 2nd, streamwise forces on the column and wave height at some place in front of the column should be measured.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=0.5\textwidth]{./figures/Diagram_case}
+            \caption{Diagram of experiment apparatus}
+        \end{figure}
 
+
+\section{Implementation steps}
+In a first step we plan to study some relavant chapters in textbook, including multidimensional hyperbolic problems, multidimensional numerical methods and implementation of multidimensional system in CLAWPACK, especially the shallow water equations. 
+\par
+Next we plan to model a dambreak problem in CLAWPACK, using shallow water equation.
+\par
+Then we will investigate on how to put a square column into the mesh in CLAWPACK. Maybe cutting out a section of the grid where the column is and modify the code to make it treat the interface as boundary. 
+\par
+Finally all simulation result will be compared to experiment result.
+\section{validation procedure}
+The validation procedure will include comparison of wave height and streamwise velocity, U, at different depth, at where the center of column should located in case without a column, and comparison of wave height in front of the column.
 \end{document}
 
