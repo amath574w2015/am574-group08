@@ -1,0 +1,7 @@
+* (2/23)Read about multidimensional systems. In particular
+  * 21.3 Clawpack implementation
+  * 21.7 Shallow water equations
+  * 21.8 Boundary conditions
+* (2/24)Meet with Randy to discuss column implementation
+* (2/24)Dam Break problem running
+* (3/3) First Draft
