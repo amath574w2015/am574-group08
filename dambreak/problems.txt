@@ -1,0 +1,2 @@
+1.When running make .output, it reported some global variables is not there. I guess it was because subroutine setprob.f is not called in main program. 
+Next step should be figuring out if it's called.
