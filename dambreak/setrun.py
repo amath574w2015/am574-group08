@@ -75,16 +75,16 @@ def setrun(claw_pkg='geoclaw'):
 
     # Lower and upper edge of computational domain:
     clawdata.lower[0] = 0.0
-    clawdata.upper[0] = 19.76  #9.84
+    clawdata.upper[0] = 8
 
-    clawdata.lower[1] = 0.
-    clawdata.upper[1] = 1.52
+    clawdata.lower[1] = 0
+    clawdata.upper[1] = 0.6
 
 
 
     # Number of grid cells: Coarsest grid
-    clawdata.num_cells[0] = 260
-    clawdata.num_cells[1] = 20
+    clawdata.num_cells[0] = 160 
+    clawdata.num_cells[1] = 12 
 
 
     # ---------------
@@ -276,7 +276,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 2
+    amrdata.amr_levels_max = 1
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [8]

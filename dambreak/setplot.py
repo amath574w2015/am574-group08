@@ -70,8 +70,8 @@ def setplot(plotdata):
     #plotitem.plot_var = geoplot.surface
     plotitem.plot_var = geoplot.surface_or_depth
     plotitem.imshow_cmap = cmap
-    plotitem.imshow_cmin = -0.003
-    plotitem.imshow_cmax = 0.003
+    plotitem.imshow_cmin = -0.02
+    plotitem.imshow_cmax = 0.28
     plotitem.add_colorbar = True
     plotitem.colorbar_shrink = 0.6
     plotitem.amr_celledges_show = [0]
@@ -270,7 +270,7 @@ def setplot(plotdata):
     plotitem.add_colorbar = True
     plotitem.amr_celledges_show = [0]
     plotitem.amr_patchedges_show = [0]
-    plotitem.afterpatch = plot_quiver
+    #plotitem.afterpatch = plot_quiver
 
 
 
@@ -336,7 +336,7 @@ def setplot(plotdata):
     plotitem.colorbar_shrink = 0.6
     plotitem.amr_celledges_show = [0]
     plotitem.amr_patchedges_show = [0]
-    plotitem.afterpatch = plot_quiver
+    #plotitem.afterpatch = plot_quiver
 
 
 

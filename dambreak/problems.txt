@@ -5,4 +5,4 @@ At this stage, I delete setprob.f in Makefile and try to define sloc,hl,hr... as
 
 
 #todo
-1.check $(GEOLIB)/setprob.f90 \ 
+check ./setprob.py and control output
