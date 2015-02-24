@@ -1,7 +1,7 @@
       subroutine setprob()
       implicit double precision (a-h,o-z)
       character*25 fname
-      common /cparam/ grav
+      !common /cparam/ grav
       common /comic/ sloc,hl,ul,hr,ur
 c
 c     # begin_html
@@ -12,6 +12,7 @@ c     # in common block comic.
 c     # end_html
 c
 c
+      print *,"--------------entering subroutine setprob()-----------"
       iunit = 7
       fname = 'setprob.data'
 c     # open the unit with new routine from Clawpack 4.4 to skip over

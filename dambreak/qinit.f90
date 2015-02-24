@@ -11,11 +11,22 @@ subroutine qinit(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux)
     real(kind=8), intent(in) :: xlower,ylower,dx,dy
     real(kind=8), intent(inout) :: q(meqn,1-mbc:mx+mbc,1-mbc:my+mbc)
     real(kind=8), intent(inout) :: aux(maux,1-mbc:mx+mbc,1-mbc:my+mbc)
-    common /comic/ sloc,hl,ul,hr,ur
+
+    !try to define sloc,hl,ul,hr,ur locally
+    REAL(kind=8) :: sloc = 5.9
+    REAL(kind=8) :: hl = 0.25 
+    REAL(kind=8) :: ul = 0.0
+    REAL(kind=8) :: hr = 0.02
+    REAL(kind=8) :: ur = 0.0
+    REAL(kind=8) :: xcenter
+
+    !common /comic/ sloc,hl,ul,hr,ur
     
     ! Locals
     integer :: i,j,m
     real(kind=8) :: discharge
+
+    !print *,"----------------executing subroutine qinit()------------------------"
     
     ! Set flat state based on sea_level
     q = 0.d0

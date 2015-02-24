@@ -47,7 +47,6 @@ MODULES = \
 SOURCES = \
   bc2amr.f \
   qinit.f90 \
-  setprob.f \
   valout_vorticity.f \
   $(GEOLIB)/b4step2.f90 \
   $(GEOLIB)/src2.f90 \
