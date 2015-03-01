@@ -75,7 +75,7 @@ def setrun(claw_pkg='geoclaw'):
 
     # Lower and upper edge of computational domain:
     clawdata.lower[0] = 0.0
-    clawdata.upper[0] = 8
+    clawdata.upper[0] = 16.6
 
     clawdata.lower[1] = 0
     clawdata.upper[1] = 0.6
@@ -83,7 +83,7 @@ def setrun(claw_pkg='geoclaw'):
 
 
     # Number of grid cells: Coarsest grid
-    clawdata.num_cells[0] = 160 
+    clawdata.num_cells[0] = 332 
     clawdata.num_cells[1] = 12 
 
 
@@ -131,8 +131,8 @@ def setrun(claw_pkg='geoclaw'):
 
     if clawdata.output_style==1:
         # Output nout frames at equally spaced times up to tfinal:
-        clawdata.num_output_times = 5
-        clawdata.tfinal = 1.
+        clawdata.num_output_times =10 
+        clawdata.tfinal = 2.
         clawdata.output_t0 = True  # output at initial (or restart) time?
 
     elif clawdata.output_style == 2:
@@ -161,7 +161,7 @@ def setrun(claw_pkg='geoclaw'):
     # The current t, dt, and cfl will be printed every time step
     # at AMR levels <= verbosity.  Set verbosity = 0 for no printing.
     #   (E.g. verbosity == 2 means print only on levels 1 and 2.)
-    clawdata.verbosity = 0
+    clawdata.verbosity = 1
 
 
 
@@ -337,11 +337,7 @@ def setrun(claw_pkg='geoclaw'):
     # rundata.gaugedata.add_gauge()
 
     gauges = rundata.gaugedata.gauges
-    x0 = 5.
-    y0 = 1.52/2.
-    gauges.append([0, 1., y0, 0., 1e10])
-    gauges.append([1, x0+1.02, y0, 0., 1e10])
-    gauges.append([2, x0+1.02, y0+0.27, 0., 1e10])
+    gauges.append([2, 11.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
 
     return rundata
     # end of function setrun
@@ -389,8 +385,8 @@ def setgeo(rundata):
     topo_data = rundata.topo_data
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
+    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
+    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
