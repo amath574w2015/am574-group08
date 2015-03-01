@@ -59,7 +59,8 @@ def setplot(plotdata):
     #plotaxes.axescmd = 'axes([.1,.7,.8,.2])'
     plotaxes.title = 'Surface'
     plotaxes.scaled = True
-    plotaxes.xlimits = [0,9.5]
+    #plotaxes.xlimits = [0,9.5]
+    plotaxes.xlimits ='auto'
 
     cmap = colormaps.make_colormap({0:[0.5,1,0.5],0.01:[0,1,1], \
                                     0.2:[0,0,1], 0.5:[1,1,0],  0.8:[1,0,0], \
