@@ -100,20 +100,20 @@ def setplot(plotdata):
     plotaxes = plotfigure.new_plotaxes()
     plotaxes.axescmd = 'subplot(312)'
     plotaxes.xlimits = [0,12]
-    plotaxes.ylimits = [-0.03,0.01]
-    plotaxes.title = 'Cross section of surface at y=0.76'
+    plotaxes.ylimits = [-0.05,0.5]
+    plotaxes.title = 'Cross section of surface at y=0.3'
 
     plotitem = plotaxes.new_plotitem(plot_type='1d_from_2d_data')
 
     def xsec(current_data):
-        # Return x value and surface eta at this point, along y=0.76
+        # Return x value and surface eta at this point, along y=0.3
         from pylab import find,ravel
         x = current_data.x
         y = current_data.y
         dy = current_data.dy
         q = current_data.q
 
-        ij = find((y <= 0.76+dy/2.) & (y > 0.76-dy/2.))
+        ij = find((y <= 0.3+dy/2.) & (y > 0.3-dy/2.))
         x_slice = ravel(x)[ij]
         eta_slice = ravel(q[3,:,:])[ij]
         return x_slice, eta_slice
@@ -138,7 +138,7 @@ def setplot(plotdata):
         eta = q[3,:]
         B = eta - h
 
-        ij = find((y <= 0.76+dy/2.) & (y > 0.76-dy/2.))
+        ij = find((y <= 0.3+dy/2.) & (y > 0.3-dy/2.))
         x_slice = ravel(x)[ij]
         B_slice = ravel(B)[ij]
         return x_slice, B_slice
@@ -152,7 +152,7 @@ def setplot(plotdata):
     plotaxes = plotfigure.new_plotaxes()
     plotaxes.axescmd = 'subplot(313)'
     plotaxes.xlimits = [0,12]
-    plotaxes.ylimits = [-0.2,0.3]
+    plotaxes.ylimits = [-0.2,2.0]
     plotaxes.title = 'u-velocity'
     plotitem = plotaxes.new_plotitem(plot_type='1d_from_2d_data')
 
@@ -170,7 +170,7 @@ def setplot(plotdata):
         #s = sqrt(u**2 + v**2)
         #s = s / sqrt(9.81/0.97)  # so comparable to eta
 
-        ij = find((y <= 0.76+dy/2.) & (y > 0.76-dy/2.))
+        ij = find((y <= 0.3+dy/2.) & (y > 0.3-dy/2.))
         x_slice = ravel(x)[ij]
         #s_slice = ravel(s)[ij]
         u_slice = ravel(u)[ij]
@@ -198,7 +198,7 @@ def setplot(plotdata):
         dy = current_data.dy
         q = current_data.q
         hu = q[1,:]
-        ij = find((y <= 0.76+dy/2.) & (y > 0.76-dy/2.))
+        ij = find((y <= 0.3+dy/2.) & (y > 0.3-dy/2.))
         x_slice = ravel(x)[ij]
         hu_slice = ravel(hu)[ij]
         return x_slice, hu_slice
