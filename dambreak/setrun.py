@@ -378,10 +378,29 @@ def setgeo(rundata):
 
     # == settopo.data values ==
     topo_data = rundata.topo_data
+
+    #Set topography
+
+    # Choice of topography:
+    #   0 => flat bottom
+    #   1 => cylinder cloumn
+    #   2 => square column
+    topo_choice = 2
+
+    if (topo_choice == 0):
+        topo_domain_fname = 'domain_Zero.tt1'
+        topo_column_fname = 'columnZero.tt1'
+    elif(topo_choice == 1):
+        topo_domain_fname = 'domain_CylinderColumn.tt1'
+        topo_column_fname = 'columnCylinder.tt1'
+    elif(topo_choice == 2):
+        topo_domain_fname = 'domain_SquareColumn.tt1'
+        topo_column_fname = 'columnSquare.tt1'
+
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_domain_fname])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_column_fname])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data

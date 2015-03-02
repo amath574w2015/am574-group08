@@ -8,49 +8,45 @@ def maketopo():
     """
     Output topography files
     """
-    nxpoints = 201
-    nypoints = 21
+    nxpoints = 260
+    nypoints = 12
     xlower = 0.
-    xupper = 20.
+    xupper = 16.6
     ylower = 0.
-    yupper = 1.52
-    outfile= "domain.tt1"
+    yupper = 0.6
+    outfile= "domain_CylinderColumn.tt1"
     topotools.topo1writer(outfile,topo,xlower,xupper,ylower,yupper,nxpoints,nypoints)
 
-    nxpoints = 201
-    nypoints = 201
-    xlower = 4.5
-    xupper = 5.5
-    ylower = 0.25
-    yupper = 1.25
-    outfile= "hump.tt1"
+    nxpoints = 260
+    nypoints = 12
+    xlower = 11.04
+    xupper = 11.16
+    ylower = 0.24
+    yupper = 0.36
+    outfile= "columnCylinder.tt1"
     topotools.topo1writer(outfile,topo,xlower,xupper,ylower,yupper,nxpoints,nypoints)
 
 
 def topo(x,y):
     """
-    flat with hump
+    flat with column
     """
 
     z = zeros(x.shape)
+    xo=11.1;
+    yo=0.3;
+    base_r=0.12/2;
 
-    # island addition
-    # from paper
-    xo=5.0;
-    yo=1.52/2;
-    slope_d=8;
-    base_r=0.75/2;
-    top_r=0.05/2;
-    hi=0.049;
-
+    ## cylinder column
+    hi=1.0;
     dist = sqrt( (x-xo)**2+(y-yo)**2 );
-    zz = hi*(1-(dist-top_r)/(base_r-top_r))
-    zz = where(zz<hi, zz, hi)
+    zz = hi
     z = where(dist<base_r, zz, 0.)
-
-    #z = z - 0.054
-    z = zeros(x.shape)
     
+    ## square column
+#    hi=1.0
+#    z = where( ( (abs(x-xo)<base_r) & (abs(y-yo)<base_r) ),hi,0)
+
     return z
 
 def plot_topo():
