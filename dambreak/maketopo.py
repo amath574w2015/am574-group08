@@ -48,9 +48,8 @@ def topo(x,y):
     zz = where(zz<hi, zz, hi)
     z = where(dist<base_r, zz, 0.)
 
+    #z = z - 0.054
     z = zeros(x.shape)
-
-#    z = z - 0.054
     
     return z
 
