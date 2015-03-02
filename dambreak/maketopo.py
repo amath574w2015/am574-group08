@@ -14,7 +14,7 @@ def maketopo():
     xupper = 16.6
     ylower = 0.
     yupper = 0.6
-    outfile= "domain.tt1"
+    outfile= "domain_CylinderColumn.tt1"
     topotools.topo1writer(outfile,topo,xlower,xupper,ylower,yupper,nxpoints,nypoints)
 
     nxpoints = 260
@@ -23,7 +23,7 @@ def maketopo():
     xupper = 11.16
     ylower = 0.24
     yupper = 0.36
-    outfile= "column.tt1"
+    outfile= "columnCylinder.tt1"
     topotools.topo1writer(outfile,topo,xlower,xupper,ylower,yupper,nxpoints,nypoints)
 
 
@@ -38,10 +38,10 @@ def topo(x,y):
     base_r=0.12/2;
 
     ## cylinder column
-#    hi=1.0;
-#    dist = sqrt( (x-xo)**2+(y-yo)**2 );
-#    zz = hi
-#    z = where(dist<base_r, zz, 0.)
+    hi=1.0;
+    dist = sqrt( (x-xo)**2+(y-yo)**2 );
+    zz = hi
+    z = where(dist<base_r, zz, 0.)
     
     ## square column
 #    hi=1.0
