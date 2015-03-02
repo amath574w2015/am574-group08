@@ -59,7 +59,7 @@ def setplot(plotdata):
     #plotaxes.axescmd = 'axes([.1,.7,.8,.2])'
     plotaxes.title = 'Surface'
     plotaxes.scaled = True
-    plotaxes.xlimits = [0,9.5]
+    plotaxes.xlimits = [0,16.6]
 
     cmap = colormaps.make_colormap({0:[0.5,1,0.5],0.01:[0,1,1], \
                                     0.2:[0,0,1], 0.5:[1,1,0],  0.8:[1,0,0], \
@@ -99,7 +99,7 @@ def setplot(plotdata):
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
     plotaxes.axescmd = 'subplot(312)'
-    plotaxes.xlimits = [0,12]
+    plotaxes.xlimits = [0,16.6]
     plotaxes.ylimits = [-0.05,0.5]
     plotaxes.title = 'Cross section of surface at y=0.3'
 
@@ -151,7 +151,7 @@ def setplot(plotdata):
 
     plotaxes = plotfigure.new_plotaxes()
     plotaxes.axescmd = 'subplot(313)'
-    plotaxes.xlimits = [0,12]
+    plotaxes.xlimits = [0,16.6]
     plotaxes.ylimits = [-0.2,2.0]
     plotaxes.title = 'u-velocity'
     plotitem = plotaxes.new_plotitem(plot_type='1d_from_2d_data')
