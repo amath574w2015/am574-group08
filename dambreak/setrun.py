@@ -32,24 +32,6 @@ def setrun(claw_pkg='geoclaw'):
     num_dim = 2
     rundata = data.ClawRunData(claw_pkg, num_dim)
 
-
-
-    #------------------------------------------------------------------
-    # Problem-specific parameters to be written to setprob.data:
-    #------------------------------------------------------------------
-    #For dambreak I.C
-    probdata = rundata.new_UserData(name='probdata',fname='setprob.data')
-
-    #probdata.add_param('g',   1.0,  'Gravitational constant')
-    probdata.add_param('sloc',    5.9,   'Initial discontinuity location')
-    probdata.add_param('hl', 0.25,  'Value of water height to left')
-    probdata.add_param('ul', 0.,  'Value of water velocity to right')
-    probdata.add_param('hr', 0.02,  'Value of water height to left')
-    probdata.add_param('ur', 0.,  'Value of water velocity to right')
-
-
-
-
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
     #------------------------------------------------------------------
@@ -80,11 +62,17 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.lower[1] = 0
     clawdata.upper[1] = 0.6
 
+    #clawdata.lower[0] = 0.0
+    #clawdata.upper[0] = 19.76  #9.84
+
+    #clawdata.lower[1] = 0.
+    #clawdata.upper[1] = 1.52
+
 
 
     # Number of grid cells: Coarsest grid
-    clawdata.num_cells[0] = 332 
-    clawdata.num_cells[1] = 12 
+    clawdata.num_cells[0] = 260
+    clawdata.num_cells[1] = 12
 
 
     # ---------------
@@ -131,8 +119,8 @@ def setrun(claw_pkg='geoclaw'):
 
     if clawdata.output_style==1:
         # Output nout frames at equally spaced times up to tfinal:
-        clawdata.num_output_times =10 
-        clawdata.tfinal = 2.
+        clawdata.num_output_times = 40
+        clawdata.tfinal = 12.0 
         clawdata.output_t0 = True  # output at initial (or restart) time?
 
     elif clawdata.output_style == 2:
@@ -161,7 +149,7 @@ def setrun(claw_pkg='geoclaw'):
     # The current t, dt, and cfl will be printed every time step
     # at AMR levels <= verbosity.  Set verbosity = 0 for no printing.
     #   (E.g. verbosity == 2 means print only on levels 1 and 2.)
-    clawdata.verbosity = 1
+    clawdata.verbosity = 2
 
 
 
@@ -336,7 +324,15 @@ def setrun(claw_pkg='geoclaw'):
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
     # rundata.gaugedata.add_gauge()
 
+    #gauges = rundata.gaugedata.gauges
+    #x0 = 5.
+    #y0 = 1.52/2.
+    #gauges.append([0, 1., y0, 0., 1e10])
+    #gauges.append([1, x0+1.02, y0, 0., 1e10])
+    #gauges.append([2, x0+1.02, y0+0.27, 0., 1e10])
+
     gauges = rundata.gaugedata.gauges
+    gauges.append([1, 2.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
     gauges.append([2, 11.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
 
     return rundata
@@ -385,8 +381,8 @@ def setgeo(rundata):
     topo_data = rundata.topo_data
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
-    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
-    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
