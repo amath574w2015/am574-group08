@@ -13,7 +13,7 @@ subroutine qinit(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux)
     real(kind=8), intent(inout) :: aux(maux,1-mbc:mx+mbc,1-mbc:my+mbc)
 
     !try to define sloc,hl,ul,hr,ur locally
-    REAL(kind=8) :: sloc = 1.9
+    REAL(kind=8) :: sloc = 5.9
     REAL(kind=8) :: hl = 0.25 
     REAL(kind=8) :: ul = 0.0
     REAL(kind=8) :: hr = 0.02
