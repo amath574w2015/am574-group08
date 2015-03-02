@@ -119,8 +119,8 @@ def setrun(claw_pkg='geoclaw'):
 
     if clawdata.output_style==1:
         # Output nout frames at equally spaced times up to tfinal:
-        clawdata.num_output_times = 40
-        clawdata.tfinal = 12.0 
+        clawdata.num_output_times = 20
+        clawdata.tfinal = 17.0 
         clawdata.output_t0 = True  # output at initial (or restart) time?
 
     elif clawdata.output_style == 2:
@@ -332,8 +332,7 @@ def setrun(claw_pkg='geoclaw'):
     #gauges.append([2, x0+1.02, y0+0.27, 0., 1e10])
 
     gauges = rundata.gaugedata.gauges
-    gauges.append([1, 2.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
-    gauges.append([2, 11.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([1, 11.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
 
     return rundata
     # end of function setrun

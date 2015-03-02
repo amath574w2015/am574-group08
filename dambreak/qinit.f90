@@ -44,7 +44,7 @@ subroutine qinit(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux)
         enddo
     enddo
 
-!The grammar below seem to be incorrect for *.f90. It's only correct fo *.f
+!The grammar below seem to be incorrect for *.f90. It's only correct for *.f
 !    forall(i=1:mx, j=1:my)
 !        xcenter = xlower + (i - 0.5d0) * dx
 !        if (xcenter < sloc) then
