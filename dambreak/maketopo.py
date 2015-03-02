@@ -44,8 +44,8 @@ def topo(x,y):
 #    z = where(dist<base_r, zz, 0.)
     
     ## square column
-    hi=1.0
-    z = where( ( (abs(x-xo)<base_r) & (abs(y-yo)<base_r) ),hi,0)
+#    hi=1.0
+#    z = where( ( (abs(x-xo)<base_r) & (abs(y-yo)<base_r) ),hi,0)
 
     return z
 
