@@ -29,7 +29,7 @@ def maketopo():
 
 def topo(x,y):
     """
-    flat with cylinder
+    flat with column
     """
 
     z = zeros(x.shape)
