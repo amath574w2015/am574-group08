@@ -382,7 +382,7 @@ def setgeo(rundata):
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
     topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain.tt1'])
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'hump.tt1'])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'column.tt1'])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
