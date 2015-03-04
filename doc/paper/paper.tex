@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\usepackage{hyperref}  % for urls and hyperlinks
+
+
+\setlength{\textwidth}{6.2in}
+\setlength{\oddsidemargin}{0.3in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{8.7in}
+\setlength{\voffset}{-.7in}
+\setlength{\headsep}{26pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% input some useful macros from RJLmacros.tex:
+\input{../macros/RJLmacros}
+
+\title{Comparison of the solution of the shallow equation with experimental}
+
+\author{Xinsheng Qin xsqin@uw.edu\\
+        Kaspar Mueller kasparm@uw.edu}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper we compare the solution of the shallow water equations with experimental results. The experiment simulates the interaction between an incident bore and a free-standing coastal structure. The shallow water equations are solved using the CLAWPACK software.
+\end{abstract}
+
+\section{Introduction}\label{Sec:intro}
+The aim of this work is to compare computational results using CLAWPACK with experimental results. This is done for the interaction of a bore and a free-standing coastal structure. The experiment results are given by Halld\'or \'Arnason \cite{HA}. We model the water using the shallow water equations which will be introduced in Section \ref{Sec:ShallowWater}, followed by a description how CLAWPACK solves the system and handles the mesh in Section \ref{Sec:Algo}. In Section \ref{Sec:Setup} we describe the setup of the test case. We compare wave height and velocity for the case of a pure dambreak without structure in the domain in Section \ref{Sec:Zero}. In Section \ref{Sec:Square} we add a square column and compare wave height upstream as well as downstream of the column. In Section \ref{Sec:Cylinder} we compare the wave height at the same location but for a cylinder column. We close this paper with a conclusion in Section \ref{Sec:Conclusion}.
+\section{The shallow water equations}\label{Sec:ShallowWater}
+\eqm
+h_t + (uh)_x + (vh)_y = 0\\
+(hu)_t + (huv)_y +(hu^2 + \frac{1}{2}gh^2)_x = -ghB_x - Du\\
+(hv)_t + (huv)_x +(hv^2 + \frac{1}{2}gh^2)_y = -ghB_y - Dv
+\enm
+where $u,v$ are the horizontal depth averaged velocity, $B$ the topography and $D$ the drag coefficient.
+\section{The Algorithm in CLAWPACK/GeoClaw}\label{Sec:Algo}
+We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used the f-wave approach described in \cite{DLG}. There the difference in flux normal to the cell interface is separated into propagating waves rather than the jump in $Q$.
+\section{The setup of the test case}\label{Sec:Setup}
+The benchmark experiment was conducted in a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge the column located downstream.
+We are going to simulate 2 cases in the experiment. The 1st case purely generated the single bore, the 2nd case generated the bore to impinge the column with one side facing the flow.
+\par
+In the 1st case, wave height and streamwise velocity, U, at different depth, at where the center of column should be located are measured. In the 2nd case, the wave height in front and behind the column are measured.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=0.5\textwidth]{../proposal/figures/Diagram_case}
+            \caption{Diagram of experiment apparatus}
+        \end{figure}
+\section{Dam Break}\label{Sec:Zero}
+\section{Dam Break with square column}\label{Sec:Square}
+\section{Dam Break with cylinder column}\label{Sec:Cylinder}
+\section{Conclusion}\label{Sec:Conclusion}
+{\footnotesize
+\begin{thebibliography}{100}
+\bibitem{HA} Halld\'or \'Arnason  (2005). Thesis - Interactions between an incident bore and a free-standing coastal structure. \url{http://faculty.washington.edu/cpetroff/Halldor%20dissertation.pdf}
+\bibitem{DLG} David L. George (2008) Journal of Computational Physics - Augmented Riemann solvers for the shallow water equations over variable topography with steady states and inundation.
+\bibitem{MJB} Marsha J. Berger and David L. George and Randall J. LeVeque and Kyle T. Mandli (2011) Advances in Water Resources - The GeoClaw software for depth-averaged flows with adaptive refinement.
+\end{thebibliography}
+}
+\end{document}
+
