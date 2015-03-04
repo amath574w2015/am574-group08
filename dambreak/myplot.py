@@ -8,10 +8,10 @@ import numpy as np
 
 
 plotdata = ClawPlotData()
-plotdata.outdir = '_output'   # set to the proper output directory
+plotdata.outdir = '_output_no_column'   # set to the proper output directory
 gaugeno = 1                   # gauge number to examine
 g = plotdata.getgauge(gaugeno)
-#g.t is the array of times,
+#g.t is the array of times
 #g.q is the array of values recorded at the gauges (g.q[m,n] is the m`th variable at time `t[n])
 
 
@@ -31,6 +31,14 @@ with open('./dataForComp/waveHeightNoColumnOF.csv', 'rb') as csvfile:
     waveHeightNoColumnOF = np.array(waveHeightNoColumnOF)
     waveHeightNoColumnOF = waveHeightNoColumnOF.astype(np.float)
 
+with open('./dataForComp/velocity_nocolumn_exp.csv', 'rb') as csvfile:
+    reader = csv.reader(csvfile)
+    velocity_nocolumn_exp = list(reader)
+    velocity_nocolumn_exp = np.array(velocity_nocolumn_exp)
+    velocity_nocolumn_exp = velocity_nocolumn_exp.astype(np.float)
+
+#compute depth-averaged velocity u from experiment data
+
 
 
     
@@ -38,8 +46,12 @@ with open('./dataForComp/waveHeightNoColumnOF.csv', 'rb') as csvfile:
 
 
 #plot wave height history
+#plt.subplot(211)
 plt.figure()
-plt.plot(g.t,g.q[0,:],'b-.',waveHeightNoColumnOF[:,0],waveHeightNoColumnOF[:,1],'r--',waveHeightNoColumnExp[:,0],waveHeightNoColumnExp[:,1],'g-')
+plt.plot(g.t,g.q[0,:],'b-.',label='geoclaw')
+plt.plot(waveHeightNoColumnOF[:,0],waveHeightNoColumnOF[:,1],'r--',label='OF')
+plt.plot(waveHeightNoColumnExp[:,0],waveHeightNoColumnExp[:,1],'g--',label='Exp')
+legend = plt.legend(loc='upper center', shadow=True, fontsize='x-large')
 plt.xlabel('time (s)')
 plt.ylabel('wave height')
 plt.title('wave height history at x=11.1')
