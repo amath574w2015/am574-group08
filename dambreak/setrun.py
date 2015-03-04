@@ -264,7 +264,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 1
+    amrdata.amr_levels_max = 2
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [8]
@@ -332,7 +332,12 @@ def setrun(claw_pkg='geoclaw'):
     #gauges.append([2, x0+1.02, y0+0.27, 0., 1e10])
 
     gauges = rundata.gaugedata.gauges
-    gauges.append([1, 11.1, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([1, 11.16, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([2, 11.04, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([3, 11.03, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([4, 11.02, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([5, 11.01, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([6, 11.00, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
 
     return rundata
     # end of function setrun
