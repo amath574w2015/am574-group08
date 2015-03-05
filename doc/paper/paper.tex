@@ -57,6 +57,8 @@ In the 1st case, wave height and streamwise velocity, U, at different depth, at 
             \includegraphics[width=0.5\textwidth]{../proposal/figures/Diagram_case}
             \caption{Diagram of experiment apparatus}
         \end{figure}
+
+In all cases below, boundary conditions are all set to reflection wall. 
 \section{Dam Break}\label{Sec:Zero}
 The initial condition for this and the following cases is given by
 \eqm
@@ -67,8 +69,59 @@ h_0(x,y)=&
 \end{cases}\\
 u_0(x,y) =& 0
 \enm
+
+Figure \ref{fig:waveheight_nocolumn} shows time history of wave height measured at where center of column should be. 
+Result from geoclaw agree quite well in general. At around t=3.8, geoclaw accurately predicted the arrival of the shock. 
+As for the peak value of this shock, geoclaw overestimated it a little, while OpenFOAM, another open source computational fluid dynamics software gave a better value by solving N-S equations with turbulent model.
+After a long time, the wave hit ending wall and got reflected, which can be told by the second jump in wave height in the figure. 
+Geoclaw also predicted the arrival time of this peak quite well and got only a little overestimation of peak value.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/waveheight_nocolumn}
+    \caption{time history of wave height for case without a column}
+    \label{fig:waveheight_nocolumn}
+\end{figure}
+
+Figure \ref{fig:velocityU_nocolumn} gives time history of streamwise velocity u from geoclaw and experiment. 
+Note that this velocity u in both geoclaw and experiment are depth-averaged. 
+Geoclaw accurately predicted the arrival time of velocity peak as well as value of the peak. 
+After the peak arrived, geoclaw overestimated value of velocity.
+The reason why geoclaw gave a higher velocity may be attributed to its neglection of fraction force from tank bottom. In experiment, velocity get smaller as it comes closer to the bottom. 
+In geoclawa, however, there is only one u in depth direction and it does not take fraction into account. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/velocityU_nocolumn}
+    \caption{time history of streamwise velocity U for case without a column}
+    \label{fig:velocityU_nocolumn}
+\end{figure}
+
+
+
+
 \section{Dam Break with square column}\label{Sec:Square}
+Figure \ref{fig:waveheight_square_x=11.0} gives comparison of time history of wave height measured at 0.04m ahead of the leading edge of square column.(0.1m ahead of center of the column)
+Note that this figure is from t=3.0 to t=4.0, which is quite a short range compared to previous figures.
+Arrival time of peak predicted by geoclaw is about 0.2 second earlier than time measured from experiment. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/waveheight_square_x=11}
+    \caption{time history of wave height for case with square column}
+    \label{fig:waveheight_square_x=11.0}
+\end{figure}
+
+
+
 \section{Dam Break with cylinder column}\label{Sec:Cylinder}
+Figure \ref{fig:waveheight_cylinder_x=11.0} is time history of wave height measured at 0.04m ahead of the leading edge of cylinder column.(0.1m ahead of center of the column)
+Since the way geoclaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with experiment result. 
+Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/waveheight_cylinder_x=11}
+    \caption{time history of wave height for case with cylinder column}
+    \label{fig:waveheight_cylinder_x=11.0}
+\end{figure}
+
 \section{Conclusion}\label{Sec:Conclusion}
 {\footnotesize
 \begin{thebibliography}{100}
