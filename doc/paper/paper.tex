@@ -44,7 +44,7 @@ where $u,v$ are the horizontal depth averaged velocities, $B$ the topography and
 \eq
 D = \frac{gM^2\sqrt{(u^2+v^2)}}{h^{5/3}}
 \en
-where $M$ is the Manning coefficient which is $M = 0.015$. The Manning coefficient is an empirical coefficient that includes the roughness of the surface. The initial condition is given by a jump in the height $h$. The water is initially at rest.
+where $M$ is the Manning coefficient which is $M = 0.015$. The Manning coefficient is an empirical coefficient that includes the roughness of the surface. The initial condition is given by a jump in the water depth $h$. The water is initially at rest.
 \section{The Algorithm in CLAWPACK/GeoClaw}\label{Sec:Algo}
 We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used the f-wave approach described in \cite{DLG}. There the difference in flux normal to the cell interface is separated into propagating waves. The topography and drag term are incorporated in the Riemann problem. Stability and accuracy are improved by solving a transverse Riemann problem, where the waves moving normal to the cell are split into traverse direction.
 \section{The setup of the test case}\label{Sec:Setup}
@@ -70,11 +70,11 @@ h_0(x,y)=&
 u_0(x,y) =& 0
 \enm
 
-Figure \ref{fig:waveheight_nocolumn} shows time history of wave height measured at where center of column should be. 
+Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height measured at the center location where the column will be mounted. 
 Result from geoclaw agree quite well in general. At around t=3.8, geoclaw accurately predicted the arrival of the shock. 
-As for the peak value of this shock, geoclaw overestimated it a little, while OpenFOAM, another open source computational fluid dynamics software gave a better value by solving N-S equations with turbulent model.
-After a long time, the wave hit ending wall and got reflected, which can be told by the second jump in wave height in the figure. 
-Geoclaw also predicted the arrival time of this peak quite well and got only a little overestimation of peak value.
+As for the peak value of this shock, geoclaw overestimated it a little, while OpenFOAM, another open source computational fluid dynamics software gave a better value by solving the Navier-Stokes equations with turbulent model.
+After a longer time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height in the figure. 
+Geoclaw also predicted the arrival time of this peak quite well and got only a little overestimation of the peak value.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/waveheight_nocolumn}
@@ -82,11 +82,11 @@ Geoclaw also predicted the arrival time of this peak quite well and got only a l
     \label{fig:waveheight_nocolumn}
 \end{figure}
 
-Figure \ref{fig:velocityU_nocolumn} gives time history of streamwise velocity u from geoclaw and experiment. 
-Note that this velocity u in both geoclaw and experiment are depth-averaged. 
-Geoclaw accurately predicted the arrival time of velocity peak as well as value of the peak. 
-After the peak arrived, geoclaw overestimated value of velocity.
-The reason why geoclaw gave a higher velocity may be attributed to its neglection of fraction force from tank bottom. In experiment, velocity get smaller as it comes closer to the bottom. 
+Figure \ref{fig:velocityU_nocolumn} gives the time history of the streamwise velocity $u$ from geoclaw and experiment. 
+Note that this velocity $u$ in both geoclaw and experiment are depth-averaged. 
+Geoclaw accurately predicted the time of the velocity peak as well as the value of the peak. 
+After the peak arrived, geoclaw overestimated the value of velocity.
+(The reason why geoclaw gives a higher velocity may be attributed to its neglection of fraction force from the tank bottom). In the experiment, the velocity gets smaller as it comes closer to the bottom. 
 In geoclawa, however, there is only one u in depth direction and it does not take fraction into account. 
 \begin{figure}[h!]
     \centering
@@ -99,9 +99,9 @@ In geoclawa, however, there is only one u in depth direction and it does not tak
 
 
 \section{Dam Break with square column}\label{Sec:Square}
-Figure \ref{fig:waveheight_square_x=11.0} gives comparison of time history of wave height measured at 0.04m ahead of the leading edge of square column.(0.1m ahead of center of the column)
-Note that this figure is from t=3.0 to t=4.0, which is quite a short range compared to previous figures.
-Arrival time of peak predicted by geoclaw is about 0.2 second earlier than time measured from experiment. 
+Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at 0.04m ahead of the leading edge of the square column.(0.1m ahead of center of the column)
+Note that this figure is from t=3.0 to t=4.0, which is quite a short range compared to the previous figures.
+The arrival time of the peak predicted by geoclaw is about 0.2 second earlier than the time measured from experiment. 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{../../dambreak/myplot/waveheight_square_x=11}
@@ -112,8 +112,8 @@ Arrival time of peak predicted by geoclaw is about 0.2 second earlier than time 
 
 
 \section{Dam Break with cylinder column}\label{Sec:Cylinder}
-Figure \ref{fig:waveheight_cylinder_x=11.0} is time history of wave height measured at 0.04m ahead of the leading edge of cylinder column.(0.1m ahead of center of the column)
-Since the way geoclaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with experiment result. 
+Figure \ref{fig:waveheight_cylinder_x=11.0} is the time history of the wave height measured at 0.04m ahead of the leading edge of cylinder column.(0.1m ahead of the center of the column)
+Since the way geoclaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
 \begin{figure}[h!]
     \centering
