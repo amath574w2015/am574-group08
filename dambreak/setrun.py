@@ -71,8 +71,8 @@ def setrun(claw_pkg='geoclaw'):
 
 
     # Number of grid cells: Coarsest grid
-    clawdata.num_cells[0] = 332
-    clawdata.num_cells[1] = 12
+    clawdata.num_cells[0] = 830 
+    clawdata.num_cells[1] = 30 
 
 
     # ---------------
@@ -267,9 +267,9 @@ def setrun(claw_pkg='geoclaw'):
     amrdata.amr_levels_max = 2
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [8]
-    amrdata.refinement_ratios_y = [8]
-    amrdata.refinement_ratios_t = [8]
+    amrdata.refinement_ratios_x = [2]
+    amrdata.refinement_ratios_y = [2]
+    amrdata.refinement_ratios_t = [2]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -317,8 +317,8 @@ def setrun(claw_pkg='geoclaw'):
     regions = rundata.regiondata.regions
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
-    regions.append([1, 1, 0., 1e9, 0., 100., 0., 2.])
-    regions.append([2, 2, 0., 1e9, 3., 10., 0., 2.])
+    regions.append([1, 1, 0., 1e9, 0., 16.6, 0., 0.6])
+    regions.append([2, 2, 0., 1e9, 10.8, 11.4, 0.2, 0.4])
 
     # == setgauges.data values ==
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
@@ -404,7 +404,8 @@ def setgeo(rundata):
 
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
-    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_domain_fname])
+    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_domain_fname])
+    topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain_Zero.tt1'])
     topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_column_fname])
 
     # == setdtopo.data values ==
