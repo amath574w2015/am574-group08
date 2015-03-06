@@ -396,18 +396,14 @@ def setgeo(rundata):
     topo_choice = 1
 
     if (topo_choice == 0):
-        topo_domain_fname = 'domain_Zero.tt1'
         topo_column_fname = 'columnZero.tt1'
     elif(topo_choice == 1):
-        topo_domain_fname = 'domain_CylinderColumn.tt1'
         topo_column_fname = 'columnCylinder.tt1'
     elif(topo_choice == 2):
-        topo_domain_fname = 'domain_SquareColumn.tt1'
         topo_column_fname = 'columnSquare.tt1'
 
     # for topography, append lines of the form
     #    [topotype, minlevel, maxlevel, t1, t2, fname]
-    #topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_domain_fname])
     topo_data.topofiles.append([1, 1, 1, 0., 1.e10, 'domain_Zero.tt1'])
     topo_data.topofiles.append([1, 1, 1, 0., 1.e10, topo_column_fname])
 

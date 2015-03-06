@@ -1,0 +1,162 @@
+   16                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.15560000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   14                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.14520000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   15                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.13480000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   10                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.12440000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   13                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.11400000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   11                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.10360000E+02    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   12                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.93200000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    2                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.82800000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    9                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.72400000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    7                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.62000000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    8                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.51600000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    3                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.41200000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    6                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.30800000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    4                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.20400000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    5                 grid_number
+    1                 AMR_level
+   52                 mx
+   30                 my
+    0.10000000E+01    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+    1                 grid_number
+    1                 AMR_level
+   50                 mx
+   30                 my
+    0.00000000E+00    xlow
+    0.00000000E+00    ylow
+    0.20000000E-01    dx
+    0.20000000E-01    dy
+
+   17                 grid_number
+    2                 AMR_level
+   34                 mx
+   30                 my
+    0.10760000E+02    xlow
+    0.16000000E+00    ylow
+    0.10000000E-01    dx
+    0.10000000E-01    dy
+
+   18                 grid_number
+    2                 AMR_level
+   36                 mx
+   30                 my
+    0.11100000E+02    xlow
+    0.16000000E+00    ylow
+    0.10000000E-01    dx
+    0.10000000E-01    dy
+
