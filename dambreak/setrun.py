@@ -163,7 +163,7 @@ def setrun(claw_pkg='geoclaw'):
 
     # Initial time step for variable dt.
     # If dt_variable==0 then dt=dt_initial for all steps:
-    clawdata.dt_initial = 0.016
+    clawdata.dt_initial = 0.0016
 
     # Max time step to be allowed if variable dt used:
     clawdata.dt_max = 1e+99
@@ -264,12 +264,15 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 2
+    amrdata.amr_levels_max = 4
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [2]
-    amrdata.refinement_ratios_y = [2]
-    amrdata.refinement_ratios_t = [2]
+    #amrdata.refinement_ratios_x = [2,2]
+    #amrdata.refinement_ratios_y = [2,2]
+    #amrdata.refinement_ratios_t = [2,2]
+    amrdata.refinement_ratios_x = [2,2,2]
+    amrdata.refinement_ratios_y = [2,2,2]
+    amrdata.refinement_ratios_t = [2,2,2]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -318,7 +321,7 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, 0., 1e9, 0., 16.6, 0., 0.6])
-    regions.append([2, 2, 0., 1e9, 10.8, 11.4, 0.2, 0.4])
+    regions.append([3, 4, 0., 1e9, 10.8, 11.4, 0.2, 0.4])
 
     # == setgauges.data values ==
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
@@ -332,8 +335,8 @@ def setrun(claw_pkg='geoclaw'):
     #gauges.append([2, x0+1.02, y0+0.27, 0., 1e10])
 
     gauges = rundata.gaugedata.gauges
-    gauges.append([1, 11.16, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
-    gauges.append([2, 11.04, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([1, 11.165, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
+    gauges.append([2, 11.035, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
     gauges.append([3, 11.03, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
     gauges.append([4, 11.02, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
     gauges.append([5, 11.01, 0.3, 0., 1e10]) #This values of t1 and t2 specified means that this gauge data will be output for all times
@@ -390,7 +393,7 @@ def setgeo(rundata):
     #   0 => flat bottom
     #   1 => cylinder cloumn
     #   2 => square column
-    topo_choice = 2
+    topo_choice = 1
 
     if (topo_choice == 0):
         topo_domain_fname = 'domain_Zero.tt1'
