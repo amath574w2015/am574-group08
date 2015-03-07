@@ -11,7 +11,7 @@ import numpy as np
 def plot_no_column():
     plotdata = ClawPlotData()
     plotdata.outdir = '_output_nocolumn'   # set to the proper output directory
-    gaugeno = 7                   # gauge number to examine
+    gaugeno = 6                   # gauge number to examine
     g = plotdata.getgauge(gaugeno)
     #g.t is the array of times
     #g.q is the array of values recorded at the gauges (g.q[m,n] is the m`th variable at time `t[n])
@@ -46,10 +46,11 @@ def plot_no_column():
     plt.plot(waveHeightNoColumnOF[:,0],waveHeightNoColumnOF[:,1],'r--',label='OpenFOAM')
     plt.plot(waveHeightNoColumnExp[:,0],waveHeightNoColumnExp[:,1],'g--',label='Exp')
     legend = plt.legend(loc='upper center', shadow=True, fontsize='x-large')
+    plt.xlim(3.0,4.0)
     plt.xlabel('time (s)')
     plt.ylabel('wave height (m)')
     plt.title('wave height history at x=11.1')
-    plt.savefig('./myplot/waveheight_nocolumn.png', bbox_inches='tight')
+    plt.savefig('./myplot/waveheight_nocolumn_xlim_x=11.0.png', bbox_inches='tight')
     plt.close()
 
     #plot velocity u history
@@ -75,9 +76,12 @@ def plot_cylinder():
     plotdata = ClawPlotData()
     plotdata.outdir = '_output_cylinder_2'   # set to the proper output directory
     gaugeno = 6                   # gauge number to examine
-    g = plotdata.getgauge(gaugeno)
-    #g.t is the array of times
-    #g.q is the array of values recorded at the gauges (g.q[m,n] is the m`th variable at time `t[n])
+    g1 = plotdata.getgauge(gaugeno)
+
+    plotdata = ClawPlotData()
+    plotdata.outdir = '_output_finerColumntt1'   # set to the proper output directory
+    gaugeno = 6                   # gauge number to examine
+    g2 = plotdata.getgauge(gaugeno)
     if not('myplot' in os.listdir('./')):
         os.mkdir('myplot')
     #read experiment result and OpenFOAM result
@@ -90,7 +94,8 @@ def plot_cylinder():
 
     #plot waveheight history
     plt.figure()
-    plt.plot(g.t,g.q[0,:],'b-',label='geoclaw')
+    plt.plot(g1.t,g1.q[0,:],'b-',label='geoclaw')
+    #plt.plot(g2.t,g2.q[0,:],'g-',label='geoclaw2')
     plt.plot(wave_height_cylinder[:,0],wave_height_cylinder[:,1],'r--',label='Exp')
     legend = plt.legend(loc='lower center', shadow=True, fontsize='x-large')
     plt.xlabel('time (s)')
@@ -102,8 +107,15 @@ def plot_cylinder():
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
     #gauge 1
+    plotdata = ClawPlotData()
+    plotdata.outdir = '_output_finerColumntt1'   # set to the proper output directory
+    gaugeno = 1                   # gauge number to examine
+    g1 = plotdata.getgauge(gaugeno)
+
+    plotdata = ClawPlotData()
+    plotdata.outdir = '_output_cylinder_3'   # set to the proper output directory
     gaugeno = 1 #gauge at tailing edge of cylinder
-    g = plotdata.getgauge(gaugeno)
+    g3 = plotdata.getgauge(gaugeno)
     with open('./dataForComp/waveheight_cylinder_dist=120.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile)
         wave_height_cylinder = list(reader)
@@ -113,14 +125,15 @@ def plot_cylinder():
 
     #plot waveheight history
     plt.figure()
-    plt.plot(g.t,g.q[0,:],'b-',label='geoclaw')
+    plt.plot(g1.t,g1.q[0,:],'g-',label='geoclaw_gauge_located at the edge')
+    plt.plot(g3.t,g3.q[0,:],'b-',label='geoclaw_gauge_shifted 5mm away from edge')
     plt.plot(wave_height_cylinder[:,0],wave_height_cylinder[:,1],'r--',label='Exp')
-    legend = plt.legend(loc='lower center', shadow=True, fontsize='x-large')
+    legend = plt.legend(loc='upper center', shadow=True,prop={'size':10})
     plt.xlabel('time (s)')
     plt.ylabel('wave height (m)')
     plt.title('wave height history at x=11.16')
     plt.xlim(3.0,4.0)
-    plt.savefig('./myplot/waveheight_cylinder_x=11.16.png', bbox_inches='tight')
+    plt.savefig('./myplot/waveheight_cylinder_x=11.16_compare_shifted_gauge.png', bbox_inches='tight')
     plt.close()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -130,8 +143,6 @@ def plot_square():
     plotdata.outdir = '_output_square'   # set to the proper output directory
     gaugeno = 6                   # gauge number to examine
     g1 = plotdata.getgauge(gaugeno)
-    #g.t is the array of times
-    #g.q is the array of values recorded at the gauges (g.q[m,n] is the m`th variable at time `t[n])
 
     plotdata = ClawPlotData()
     plotdata.outdir = '_output_square_2'   # set to the proper output directory
@@ -155,9 +166,9 @@ def plot_square():
 
     #plot waveheight history
     plt.figure()
-    plt.plot(g1.t,g1.q[0,:],'b-',label='geoclaw1')
-    plt.plot(g2.t,g2.q[0,:],'g-.',label='geoclaw2')
-    plt.plot(g3.t,g3.q[0,:],'y-o',label='geoclaw3')
+    #plt.plot(g1.t,g1.q[0,:],'y-',label='geoclaw1')
+    #plt.plot(g2.t,g2.q[0,:],'g-.',label='geoclaw2')
+    plt.plot(g3.t,g3.q[0,:],'b-',label='geoclaw')
     plt.plot(wave_height_square[:,0],wave_height_square[:,1],'r--',label='Exp')
     legend = plt.legend(loc='lower center', shadow=True, fontsize='x-large')
     plt.xlabel('time (s)')
@@ -192,9 +203,9 @@ def plot_square():
 
     #plot waveheight history
     plt.figure()
-    plt.plot(g1.t,g1.q[0,:],'b-',label='geoclaw1')
-    plt.plot(g2.t,g2.q[0,:],'g-.',label='geoclaw2')
-    plt.plot(g3.t,g3.q[0,:],'y-o',label='geoclaw3')
+    plt.plot(g1.t,g1.q[0,:],'b-',label='geoclaw')
+    #plt.plot(g2.t,g2.q[0,:],'g-.',label='geoclaw2')
+    #plt.plot(g3.t,g3.q[0,:],'y-o',label='geoclaw3')
     plt.plot(wave_height_cylinder[:,0],wave_height_cylinder[:,1],'r--',label='Exp')
     legend = plt.legend(loc='lower center', shadow=True, fontsize='x-large')
     plt.xlabel('time (s)')
@@ -205,6 +216,6 @@ def plot_square():
     plt.close()
 
 
-#plot_cylinder()
-plot_square()
+plot_cylinder()
+#plot_square()
 #plot_no_column()
