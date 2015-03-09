@@ -1,1 +1,0 @@
-change plots in paper.tex to use the png files in ./plots
