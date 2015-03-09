@@ -78,7 +78,7 @@ Geoclaw also predicted the arrival time of this peak quite well and got only a l
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn}
-    \caption{time history of wave height for case without a column}
+    \caption{time history of wave height for case without a column. }
     \label{fig:waveheight_nocolumn}
 \end{figure}
 
@@ -103,13 +103,18 @@ Note that this figure is from t=3.0 to t=4.0, which is quite a short range compa
 There are two jumps in result given by geoclaw. First jump change water level from around 0.02 to 0.1, second one jump from 0.1 to a higher level of around 0.22.
 If we recall that the wave height is around 0.1 in \ref{fig:waveheight_nocolumn}, we can confirm this first jump is cause by the arrival of shock wave caused by dambreak. The second jump is induced by wave reflected by the column.  
 If we compare the time interval between first jump and second jump with that in \ref{fig:waveheight_square_x=11.02}, we can see that as the gauge gets closer to column, this time interval also gets shorter.
-The arrival time of the peak predicted by geoclaw is about 0.2 second earlier than the time measured from experiment and in experiment, the jump is more like a a smooth increase. 
-This can be explained by the difference between the shallow water equations that geoclaw solves and N-S equations that better describe the physics.
+\par
+The arrival time of the peak predicted by geoclaw is about 0.08 second earlier than the time measured from experiment and in experiment, the jump is more like a a smooth increase. 
+If we zoom in \ref{fig:waveheight_nocolumn} for smaller time range from 3s to 4s, we get \ref{fig:waveheight_nocolumn_zoomin}.
+In \ref{fig:waveheight_nocolumn_zoomin}, arrival time of peak predicted by geoclaw is about 0.11 second earlier that that from experiment.  
+The difference in shock shape can be explained by the difference between the shallow water equations that geoclaw solves and N-S equations that better describe the physics.
 In shallow water equations, fluid viscosity is not taken into account, while it's significant in N-S equation (or real physics).
-This causes the shock remain its shape in as it propagates in shallow water equation and smooth out in experiment.
+This causes the shock remain its shape in as it propagates in shallow water equation while smooth out in experiment.
 Thus we see a jump in result from shallow water equation while a smooth increase in experiment result.
+\par
 Shallow water equation is essentially a hyperbolic PDE, whose solution depends on initial condition along characteristics in spatio-temporal domain. 
-Thus before the propagating shock arrive, all water downstream the shock stays still. In other words, it even does not know there is a column before the shock hits the column. In contrast, N-S equation is a elliptic PDE. 
+Thus before the propagating shock arrive, all water downstream the shock stays still. 
+In other words, it even does not know there is a column before the shock hits the column. In contrast, N-S equation is a elliptic PDE. 
 In real physics govened by N-S equation, when front of the shock wave gets close to the column, water downstream it and upstream column are affected and resist the comming of wave to some extent, which raises the wave hegiht even before the wave hits the column.   
 This explains why we cannot see two jumps in experiment results.
 \begin{figure}[h!]
@@ -123,6 +128,12 @@ This explains why we cannot see two jumps in experiment results.
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1102}
     \caption{time history of wave height for case with square column, at x = 11.02}
     \label{fig:waveheight_square_x=11.02}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn_zoomin}
+    \caption{time history of wave height for case with square column, at x = 11.02}
+    \label{fig:waveheight_nocolumn_zoomin}
 \end{figure}
 
 
