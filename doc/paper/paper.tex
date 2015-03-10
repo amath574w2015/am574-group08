@@ -67,16 +67,16 @@ The initial condition for this and the following cases is given by
 h_0(x,y)=& 
 \begin{cases}
 0.25 & x<5.9 \\
-0.02 & \text{else}
+0.02 & \text{otherwise}
 \end{cases}\\
 u_0(x,y) =& 0
 \enm
-
+In this comparison we will include results from OpenFOAM, an open source CFD software modeling air and water using the Navier-Stokes equations with turbulence model.
 Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height measured at the center location where the column will be mounted. 
-Result from geoclaw agree quite well in general. At around t=3.8, geoclaw accurately predicted the arrival of the shock. 
-As for the peak value of this shock, geoclaw overestimated it a little, while OpenFOAM, another open source computational fluid dynamics software gave a better value by solving the Navier-Stokes equations with turbulent model.
-After a longer time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height in the figure. 
-Geoclaw also predicted the arrival time of this peak quite well and got only a little overestimation of the peak value.
+Result from GeoClaw agree quite well in general(Show zoom in plot). At around t=3.8, GeoClaw accurately predicted the arrival of the shock. 
+GeoClaw overestimates the peak water level a little, while OpenFOAM, gives a better value.
+After a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
+GeoClaw also predicts the arrival time of this peak quite well by overestimating the peak value by a small amount.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn}
@@ -84,11 +84,11 @@ Geoclaw also predicted the arrival time of this peak quite well and got only a l
     \label{fig:waveheight_nocolumn}
 \end{figure}
 
-Figure \ref{fig:velocityU_nocolumn} gives the time history of the streamwise velocity $u$ from geoclaw and experiment. 
-Note that this velocity $u$ in both geoclaw and experiment are depth-averaged. 
-Geoclaw accurately predicted the time of the velocity peak as well as the value of the peak. 
-After the peak arrived, geoclaw overestimated the value of velocity.
-The reason why geoclaw gives a higher velocity may be attributed to its depth-averaged property: water at all depth are propagating with the same speed. In the experiment, the velocity gets smaller as it comes closer to the bottom. 
+Figure \ref{fig:velocityU_nocolumn} gives the time history of the streamwise velocity $u$ from GeoClaw and experiment. 
+Note that this velocity $u$ in both GeoClaw and experiment are depth-averaged. 
+GeoClaw accurately predicted the time of the velocity peak as well as the value of the peak. 
+After the peak arrived, GeoClaw overestimated the value of velocity.
+The reason why GeoClaw gives a higher velocity may be attributed to its depth-averaged property: Water at all depth are propagating with the same speed. In the experiment, the velocity is getting smaller the closer we get to the bottom. 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/velocityU_nocolumn}
