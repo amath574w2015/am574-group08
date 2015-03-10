@@ -371,10 +371,12 @@ def setgeo(rundata):
     geo_data.coriolis_forcing = False
 
     # == Algorithm and Initial Conditions ==
-    geo_data.sea_level = 0.0
+    geo_data.sea_level = 0.02
+    #geo_data.sea_level = 0.0
     geo_data.dry_tolerance = 1.e-3
     geo_data.friction_forcing = True
-    geo_data.manning_coefficient =  0.015
+    geo_data.manning_coefficient =  0.025
+    #geo_data.manning_coefficient =  0.015
     geo_data.friction_depth = 0.05
 
     # Refinement data
@@ -393,7 +395,7 @@ def setgeo(rundata):
     #   0 => flat bottom
     #   1 => cylinder cloumn
     #   2 => square column
-    topo_choice = 1
+    topo_choice = 0
 
     if (topo_choice == 0):
         topo_column_fname = 'columnZero.tt1'
