@@ -78,11 +78,11 @@ h_0(x,y)=&
 u_0(x,y) =& 0
 \enm
 In this comparison we will include results from OpenFOAM, an open source CFD software modeling air and water using the Navier-Stokes equations with turbulence model.
-Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height measured at the center location where the column will be mounted. 
-Result from GeoClaw agree quite well in general(Show zoom in plot). At around t=3.8, GeoClaw accurately predicted the arrival of the shock. 
+Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height measured at the center location where the column will be mounted in the following cases. 
+The result from GeoClaw agrees quite well in general(Show zoom in plot). At around t=3.8, GeoClaw accurately predicted the arrival of the shock. 
 GeoClaw overestimates the peak water level a little, while OpenFOAM, gives a better value.
 After a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
-GeoClaw also predicts the arrival time of this peak quite well by overestimating the peak value by a small amount.
+GeoClaw also predicts the arrival time for this peak quite well but overestimates the peak value by a small amount.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn}
@@ -90,10 +90,10 @@ GeoClaw also predicts the arrival time of this peak quite well by overestimating
     \label{fig:waveheight_nocolumn}
 \end{figure}
 
-Figure \ref{fig:velocityU_nocolumn} gives the time history of the streamwise velocity $u$ from GeoClaw and experiment. 
+Figure \ref{fig:velocityU_nocolumn} shows the time history of the streamwise velocity $u$ from GeoClaw and experiment. 
 Note that this velocity $u$ in both GeoClaw and experiment are depth-averaged. 
 GeoClaw accurately predicted the time of the velocity peak as well as the value of the peak. 
-After the peak arrived, GeoClaw overestimated the value of velocity.
+After the initial jump in the velocity, GeoClaw overestimated the value of velocity.
 The reason why GeoClaw gives a higher velocity may be attributed to its depth-averaged property: Water at all depth are propagating with the same speed. In the experiment, the velocity is getting smaller the closer we get to the bottom. 
 \begin{figure}[h!]
     \centering
@@ -106,32 +106,32 @@ The reason why GeoClaw gives a higher velocity may be attributed to its depth-av
 
 
 \section{Dam Break with square column}\label{Sec:Square}
-Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at 0.04m ahead of the leading edge of the square column.(0.1m ahead of center of the column)
-Note that this figure is from t=3.0 to t=4.0, which is quite a short range compared to the previous figures.
-There are two jumps in result given by geoclaw. First jump change water level from around 0.02 to 0.1, second one jump from 0.1 to a higher level of around 0.22.
-If we recall that the wave height is around 0.1 in figure \ref{fig:waveheight_nocolumn}, we can confirm this first jump is cause by the arrival of shock wave caused by dambreak. The second jump is induced by wave reflected by the column.  
-If we compare the time interval between first jump and second jump with that in figure \ref{fig:waveheight_square_x=11.02}, we can see that as the gauge gets closer to column, this time interval also gets shorter.
+Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at $0.04m$ ahead of the leading edge of the square column($0.1m$ ahead of center of the column).
+Note that this figure is from $t=3.0$ to $t=4.0$, which shows a shorter range compared to the previous figures.
+There are two jumps in the result given by GeoClaw. A first jump with a change in water level from around $0.02$ to $0.1$ and a second jump from $0.1$ to a higher level of around $0.22$.
+If we recall from Figure \ref{fig:waveheight_nocolumn} that the wave height is around $0.1$, we can confirm that this first jump is caused by the shock wave originate in the dambreak. The second jump represents the wave reflected by the column.  
+If we compare the time interval from the first to the second jump between measurement location $x=11.0$ in Figure \ref{fig:waveheight_square_x=11.0} and location $11.02$ in Figure \ref{fig:waveheight_square_x=11.02} we can see that as we get closer to the column, this time interval gets shorter.
 \par
-There are two distinct differences between geoclaw result and experiment result. First, in experiment, the jump is more like a smooth increase. Second, arrival time of the peak predicted by geoclaw is about 0.08 second earlier than the time measured from experiment.  
+There are two distinct differences between the GeoClaw and the experimental results. First, in the experiment, the dambreak causes a smooth increase in water height. Second, the arrival time of the peak predicted by GeoClaw is about $0.08$ seconds ahead of the time measured in the experiment.  
 \par
-The difference in shock shape can be explained by the difference between the shallow water equations that geoclaw solves and N-S equations that better describe the physics.
-In shallow water equations, fluid viscosity is not taken into account, while it's significant in  real physics.
+The difference in shock shape can be explained by the difference between the shallow water equations that GeoClaw solves and Navier-Stokes equations that better describe the physics.
+In shallow water equations, fluid viscosity is not taken into account, while it is significant in real physics.
 This causes the shock remain its shape as it propagates in shallow water equation while smooth out in experiment.
 Thus we see a jump in result from shallow water equation while a smooth increase in experiment result.
 \par
-If we zoom in figure \ref{fig:waveheight_nocolumn} for smaller time range from 3s to 4s, we get figure \ref{fig:waveheight_nocolumn_zoomin}.
-In figure \ref{fig:waveheight_nocolumn_zoomin}, arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
-This time interval is much smaller than that in figure \ref{fig:waveheight_square_x=11.0} though data are not measured at exactly the same point for this two plots. 
+If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
+In Figure \ref{fig:waveheight_nocolumn_zoomin}, arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
+This time interval is much smaller than that in Figure \ref{fig:waveheight_square_x=11.0} though data are not measured at exactly the same point for this two plots. 
 This difference indicates that the column gives more resistance to shock waves in experiment than it does in shallow water equation model. 
 \par
 A simple analysis to this phenomenon is draw as below.
-Shallow water equation is essentially a hyperbolic PDE, whose solution depends on initial condition along characteristics in spatio-temporal domain. 
-Thus before the propagating shock arrive, all water downstream the shock stays still. 
+The shallow water equations are essentially a system of hyperbolic PDEs. The solution depends on initial condition along characteristics in the spatio-temporal domain. 
+Thus before the propagating shock arrives, all water downstream the shock has zero velocity. 
 In other words, it even does not know there is a column before the shock hits the column.
-This can be verified by checking history of wave height measured at exactly the same place, 0.04m ahead of leading edge of the square column, but in different cases, one with a square column and one without.
-This comparison is showed in figure \ref{fig:waveheight_x11_comparison}. As we expected, there is no difference in arrival time of the shock wave.
-In contrast, N-S equation is a elliptic PDE. 
-In real physics governed by N-S equation, when front of the shock wave gets close to the column, water downstream it and upstream column are affected and resist the comming of wave to some extent. 
+This can be verified by checking the history of the wave height measured at exactly the same location, $0.04m$ ahead of the leading edge of the square column, but in different cases, one with a square column and one without.
+This comparison is showed in Figure \ref{fig:waveheight_x11_comparison}. As we expected, there is no difference in arrival time of the shock wave.
+In contrast, the Navier-Stokes equations are a system of PDEs of elliptic type. 
+In real physics governed by Navier-Stokes equations, when front of the shock wave gets close to the column, water downstream it and upstream column are affected and resist the comming of wave to some extent. 
 This slows down the propagating speed of shock wave when it comes close to the column in real world and thus shifts the peak toward later time in the plots.
 \begin{figure}[h!]
     \centering
@@ -158,8 +158,8 @@ This slows down the propagating speed of shock wave when it comes close to the c
     \label{fig:waveheight_square_x=11.02}
 \end{figure}
 \par
-Figure \ref{fig:waveheight_square_x=11.04} shows time history of wave height measured at front face of the square column. 
-Difference between arrival time of peak still exists as expected. After the peak arrive, the wave gradually becomes stable as indicated by a horizontal line in the plots, in which region the differences between geoclaw and experiment are quite small. 
+Figure \ref{fig:waveheight_square_x=11.04} shows the time history of the wave height measured at the front face of the square column. 
+The difference between the arrival time of the peak still exists as expected. After the peak arrives, the wave gradually becomes stable as indicated by a horizontal line in the plot. In this region the differences between GeoClaw and experiment are quite small. 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1104_largerTimeRange}
@@ -170,18 +170,18 @@ Difference between arrival time of peak still exists as expected. After the peak
 
 
 \section{Dam Break with cylinder column}\label{Sec:Cylinder}
-Figure \ref{fig:waveheight_cylinder_x=11.0} is time history of the wave height measured at 0.04m ahead of the leading edge of cylinder column.(0.1m ahead of the center of the column)
-%Since the way geoclaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
+Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the leading edge of cylinder column($0.1m$ ahead of the center of the column).
+%Since the way GeoClaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 %Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
-Similar feature as what we see in case with a square column can be found in the figure.
-However, the wave height at second peak in this case is almost the same as that in square-column case (around 0.22m in both case), while this feature is quite different for experiment results between two cases.
+Similar feature as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
+However, the wave height at the second peak in this case is almost the same as that in square column case (around $0.22m$ in both case), while this feature is quite different for the experimental results between the two cases.
 \par
-Note that diameter of the cylinder is equal to length of the transection for square column. Thus the square column can block the flow in in a more efficient way than cylinder does since cylinder has a smoother shape for the fluid to pass by. 
-This explains why we see a lower peak of wave height as well as less steep curve for history of wave height in case with cylinder in experiment. 
-In geoclaw, a geometry is represented with many quadrangular cells. In our cylinder case, the cylinder is represented with many square cells since our background mesh is simple structured quadragular mesh with square cells. 
-Based on this, we can deduce in geoclaw, when the shock wave hits the cylinder, it is hitting onto many small faces vertical to flow direction at different locations. 
+Note that diameter of the cylinder is equal to half the length of the square column. Thus the square column can block the flow in in a more efficient way than cylinder does, since the cylinder has a smoother shape for the fluid to pass by. 
+This explains why we see a lower peak of wave height as well as less steep curve for history of wave height in case with the cylinder in the experiment. 
+In GeoClaw, a geometry is represented with quadrilateral cells. In the cylinder case, the cylinder is represented with square cells since our background mesh is simple structured quadrilateral mesh with square cells.
+Based on this, we can deduce in GeoClaw, when the shock wave hits the cylinder, it is hitting onto many small faces vertical to flow direction at different locations. 
 Thus it is similar to hitting onto one big face vertical to flow direction, which is the case with square column.  
-This is why my get similar result in geoclaw for case with square column and case with cylinder.
+This is why my get similar result in GeoClaw for case with square column and case with cylinder.
 
 \begin{figure}[h!]
     \centering
@@ -190,8 +190,8 @@ This is why my get similar result in geoclaw for case with square column and cas
     \label{fig:waveheight_cylinder_x=11.0}
 \end{figure}
 \par
-Figure \ref{fig:waveheight_cylinder_x=11.04} is time history of wave height for cylinder case. As we expected, peak predicted by geoclaw appears earlier but the peak values agree quite well.
-After the peak, geoclaw gives a satisfied prediction of wave height.
+Figure \ref{fig:waveheight_cylinder_x=11.04} shows the time history of the wave height for the cylinder case. As we expect, the peak predicted by GeoClaw appears earlier but the peak values agree quite well with the experiment.
+After the peak, GeoClaw gives a satisfied prediction of the wave height.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_cylinder_x1104_largerTimeScale}
