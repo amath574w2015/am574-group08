@@ -54,6 +54,10 @@ where $M$ is the Manning coefficient which is $M = 0.015$. The Manning coefficie
 \section{The Algorithm in CLAWPACK/GeoClaw}\label{Sec:Algo}
 We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used a special version of the f-wave approach described in \cite{DLG}. This solver combines the qualities of the Roe solver, HLLE-type solver and the f-wave approach. From the Roe solver it has the quality of giving a exact solution for a single-shock Riemann problem. Like the HLLE solver this method is depth positive semidefinite. The method has also a natural entropy-fix and gives a better approximation for problems with large rarefactions. The solver also maintains large class of steady states.
 The topography and drag term are incorporated in the Riemann problem. Stability and accuracy are improved by solving a transverse Riemann problem, where the waves moving normal to the cell are split into traverse direction.\\
+\eqm
+\qijnp &= \qijn - \dtdx (\apdqimj^n + \amdqiphj^n) - \dtdy (\bpdqimj^n + \bmdqiphj^n)\\
+       &-\dtdx (\tFiphj^n - \tFimhj^n) - \dtdy (\tGijph^n - \tGijmh^n)
+\enm
 In the GeoClaw solver adaptive mesh refinement (AMR) can be used. Multiple levels can be use where for each level the domain is specified. The topography for the problem is defined in a file. The topography goes into the shallow water equations through the right hand side $B$. The value from the file are converted into cell averages using a picewise bilinear function that interpolates the pointwise values. $B$ is then obtained by evaluating the exact integral of this function over the cell. 
 \section{The setup of the test case}\label{Sec:Setup}
 The benchmark experiment was conducted in a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge the column located downstream.
@@ -200,6 +204,7 @@ After the peak, GeoClaw gives a satisfied prediction of the wave height.
 \end{figure}
 
 \section{Conclusion}\label{Sec:Conclusion}
+
 {\footnotesize
 \begin{thebibliography}{100}
 \bibitem{HA} Halld\'or \'Arnason  (2005). Thesis - Interactions between an incident bore and a free-standing coastal structure. \url{http://faculty.washington.edu/cpetroff/Halldor%20dissertation.pdf}
