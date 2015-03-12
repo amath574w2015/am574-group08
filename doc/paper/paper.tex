@@ -60,9 +60,30 @@ The topography and drag term are incorporated in the Riemann problem. Stability 
 %todo 
 %there are some compiling problem when I try to compile the following 4 lines
 \eqm
-\qijnp &= \qijn - \dtdx (\apdqimj^n + \amdqiphj^n) - \dtdy (\bpdqimj^n + \bmdqiphj^n)\\
-       &-\dtdx (\tFiphj^n - \tFimhj^n) - \dtdy (\tGijph^n - \tGijmh^n)
+\qijnp &=& \qijn - \dtdx \left(\apdqimj^n + \amdqiphj^n\right) - \dtdy \left(\bpdqijm^n + \bmdqijph^n\right)\nono\\
+       &-&\dtdx \left(\tFiphj^n - \tFimhj^n\right) - \dtdy \left(\tGijph^n - \tGijmh^n\right)
 \enm
+In the f-wave approache the flux is decomposed the following way
+\eq
+f(\qi) -f(\qim) = \psum \WZ_{i-1/2}^p = \psum \beta^p_{i-1/2}r^p_{i-1/2}
+\en
+where we write this in one dimensional form since one dimensional Riemann solvers are used.
+Instead of waves $\W$ representing the jump in $Q$ we have now waves $\WZ$ representing jumps in the flux. The fluctuations are defined as
+\eq
+\amdqimh = \sum_{p:s^p_{i-1/2}<0} \WZ_{i-1/2}^p  \quad \text{and} \quad  \apdqimh = \sum_{p:s^p_{i-1/2}>0} \WZ_{i-1/2}^p  
+\en
+for the shallow water equations we are going to have
+\eq
+\begin{bmatrix}
+H_i - H_{i-1}\\
+HU_i - HU_{i-1}\\
+\varphi(\qi) - \varphi(\qim) \\
+B_i - B_{i-1}\\
+\end{bmatrix}
+= \sum_{p=0}^3 \alpha^p_{i-1/2}w^p_{i-1/2}
+\en
+where $\varphi (q) = (hu^2 +\frac{1}{2}gh^2)$ is the momentum flux and $B_i$ and $B_{i-1}$ are cell-averaged approximations of the bathymetry of the respective cell.
+\par
 In the GeoClaw solver adaptive mesh refinement (AMR) can be used. Multiple levels can be use where for each level the domain is specified. The topography for the problem is defined in a file. The topography goes into the shallow water equations through the right hand side $B$. The value from the file are converted into cell averages using a picewise bilinear function that interpolates the pointwise values. $B$ is then obtained by evaluating the exact integral of this function over the cell. 
 \section{The setup of the test case}\label{Sec:Setup}
 The benchmark experiment was conducted in a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge the column located downstream.
