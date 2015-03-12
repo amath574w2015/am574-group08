@@ -86,7 +86,8 @@ B_i - B_{i-1}\\
 \end{bmatrix}
 = \sum_{p=0}^3 \alpha^p_{i-1/2}w^p_{i-1/2}
 \en
-where $\varphi (q) = (hu^2 +\frac{1}{2}gh^2)$ is the momentum flux and $B_i$ and $B_{i-1}$ are cell-averaged approximations of the bathymetry of the respective cell.
+where $\varphi (q) = (hu^2 +\frac{1}{2}gh^2)$ is the momentum flux and $B_i$ and $B_{i-1}$ are cell-averaged approximations of the bathymetry of the respective cell. The second and third component of $\alpha^p_{i-1/2}w^p_{1-1/2}$ are chosen to ensure conservation. These components define $\WZ^p_{i-1/2}$.
+Including the $H_i - H_{i-1}$ splitting allows to create updating fluctuations that corresponds to using a depth positive semidefinite Riemann solver. For the details we refer to \cite{DLG}.
 \par
 In the GeoClaw solver adaptive mesh refinement (AMR) can be used. Multiple levels can be used where for each level the domain is specified. The topography for the problem is defined in a file. The topography goes into the shallow water equations through the right hand side $B$. The values from the file are converted into cell averages using a picewise bilinear function that interpolates the pointwise values. $B$ is then obtained by evaluating the exact integral of this function over the cell. 
 \section{The setup of the test case}\label{Sec:Setup}
