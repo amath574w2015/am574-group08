@@ -153,63 +153,109 @@ In real physics or in Navier-Stokes equations, when front of the shock wave gets
 This slows down the propagating speed of shock wave when it comes close to the column in real world and thus shifts the peak toward later time in the plots.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x11}
-    \caption{time history of wave height for case with square column}
-    \label{fig:waveheight_square_x=11.0}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_square_x11}
+        \caption{at x = 11.0 (0.04m ahead of front face of the square column)}
+        \label{fig:waveheight_square_x=11.0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_square_x1102}
+        \caption{at x = 11.2 (0.02m ahead of front face of the square column)}
+        \label{fig:waveheight_square_x=11.02}
+    \end{subfigure}
+    \caption{time history of wave height for case with a square column.}
 \end{figure}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_x11_comparison}
-    \caption{comparison of time history of wave height for case with a square column and case without one}
-    \label{fig:waveheight_x11_comparison}
-\end{figure}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1102}
-    \caption{time history of wave height for case with square column, at x = 11.02}
-    \label{fig:waveheight_square_x=11.02}
-\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x11}
+%    \caption{time history of wave height for case with square column}
+%    \label{fig:waveheight_square_x=11.0}
+%\end{figure}
 \par
 Figure \ref{fig:waveheight_square_x=11.04} shows the time history of the wave height measured at the front face of the square column. 
 The difference between the arrival time of the peak still exists as expected. After the peak arrives, the wave gradually becomes stable as indicated by a horizontal line in the plot. In this region the differences between GeoClaw and experiment are quite small. 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1104_largerTimeRange}
-    \caption{time history of wave height for case with square column, at x = 11.04}
-    \label{fig:waveheight_square_x=11.04}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_x11_comparison}
+        \caption{comparison between case with a square column and case without one}
+        \label{fig:waveheight_x11_comparison}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_square_x1104_largerTimeRange}
+        \caption{case with a square column with a larger time range at x = 11.04}
+        \label{fig:waveheight_square_x=11.04}
+    \end{subfigure}
+    \caption{time history of wave height for square column case}
 \end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_x11_comparison}
+%    \caption{comparison of time history of wave height for case with a square column and case without one}
+%    \label{fig:waveheight_x11_comparison}
+%\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1102}
+%    \caption{time history of wave height for case with square column, at x = 11.02}
+%    \label{fig:waveheight_square_x=11.02}
+%\end{figure}
+
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x1104_largerTimeRange}
+%    \caption{time history of wave height for case with square column, at x = 11.04}
+%    \label{fig:waveheight_square_x=11.04}
+%\end{figure}
 
 
 
 \section{Dam Break with cylinder column}\label{Sec:Cylinder}
-Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the leading edge of cylinder column($0.1m$ ahead of the center of the column).
+Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the front point of cylinder column($0.1m$ ahead of the center of the column).
 %Since the way GeoClaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 %Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
 Similar feature as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
 However, the wave height at the second peak in this case is almost the same as that in square column case (around $0.22m$ in both case), while this feature is quite different for the experimental results between the two cases.
 \par
-Note that diameter of the cylinder is equal to half the length of the square column. Thus the square column can block the flow in in a more efficient way than cylinder does, since the cylinder has a smoother shape for the fluid to pass by. 
+Note that diameter of the cylinder is equal to half the length of the square column. 
+Thus in experiment, the square column can block the flow in in a more efficient way than cylinder does, since the cylinder has a smoother shape for the fluid to pass by. 
 This explains why we see a lower peak of wave height as well as less steep curve for history of wave height in case with the cylinder in the experiment. 
-In GeoClaw, a geometry is represented with quadrilateral cells. In the cylinder case, the cylinder is represented with square cells since our background mesh is simple structured quadrilateral mesh with square cells.
+In GeoClaw, a geometry is represented with quadrilateral cells. 
+In the cylinder case, the cylinder is represented with square cells since our background mesh is simple structured quadrilateral mesh with square cells.
 Based on this, we can deduce in GeoClaw, when the shock wave hits the cylinder, it is hitting onto many small faces vertical to flow direction at different locations. 
+In other words, there is no cell which has a normal vector of front face pointing toward oblique direction other than the direction fluid comes.  
 Thus it is similar to hitting onto one big face vertical to flow direction, which is the case with square column.  
-This is why my get similar result in GeoClaw for case with square column and case with cylinder.
-
+This is why we get similar result in GeoClaw for case with square column and case with cylinder.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_cylinder_x11}
-    \caption{time history of wave height for case with cylinder column}
-    \label{fig:waveheight_cylinder_x=11.0}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x11}
+        \caption{at x = 11}
+        \label{fig:waveheight_cylinder_x=11.0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x1104_largerTimeScale}
+        \caption{at x = 11.04}
+        \label{fig:waveheight_cylinder_x=11.04}
+    \end{subfigure}
+    \caption{time history of wave height for cylinder column case}
 \end{figure}
+
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_cylinder_x11}
+%    \caption{time history of wave height for case with cylinder column}
+%    \label{fig:waveheight_cylinder_x=11.0}
+%\end{figure}
 \par
 Figure \ref{fig:waveheight_cylinder_x=11.04} shows the time history of the wave height for the cylinder case. As we expect, the peak predicted by GeoClaw appears earlier but the peak values agree quite well with the experiment.
 After the peak, GeoClaw gives a satisfied prediction of the wave height.
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_cylinder_x1104_largerTimeScale}
-    \caption{time history of wave height for case with cylinder column, at x = 11.04}
-    \label{fig:waveheight_cylinder_x=11.04}
-\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{./plots/waveheight_cylinder_x1104_largerTimeScale}
+%    \caption{time history of wave height for case with cylinder column, at x = 11.04}
+%    \label{fig:waveheight_cylinder_x=11.04}
+%\end{figure}
 
 \section{Conclusion}\label{Sec:Conclusion}
 
