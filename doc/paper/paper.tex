@@ -213,6 +213,14 @@ The difference between the arrival time of the peak still exists as expected. Af
     \end{subfigure}
     \caption{time history of wave height for square column case}
 \end{figure}
+\par
+Figure \ref{fig:waveheight_square_back} shows history of wave height measured at back face of the square column (at $X = 11.16$). Boundary layer detached near this region thus fluid in this region is difficult to be predicted. GeoClaw overestimates wave height in this region.  
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./plots/waveheight_square_back}
+    \caption{history of wave height measure at back face of the square column}
+    \label{fig:waveheight_square_back}
+\end{figure}
 %\begin{figure}[h!]
 %    \centering
 %    \includegraphics[width=0.5\textwidth]{./plots/waveheight_x11_comparison}
@@ -264,6 +272,15 @@ This is why we get similar results in GeoClaw for the case with square column an
         \label{fig:waveheight_cylinder_x=11.04}
     \end{subfigure}
     \caption{time history of wave height for cylindrical column case}
+\end{figure}
+\par
+Figure \ref{fig:waveheight_cylinder_back} shows history of wave height measured at back face of the cylinder column (at $X = 11.16$). 
+GeoClaw gives a satisfied prediction in this region.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./plots/waveheight_cylinder_back}
+    \caption{history of wave height measure at back face of the square column}
+    \label{fig:waveheight_cylinder_back}
 \end{figure}
 
 %\begin{figure}[h!]
