@@ -4,6 +4,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 
 \usepackage{hyperref}  % for urls and hyperlinks
+%\usepackage[pdftex]{graphicx} 
+\usepackage{caption}
+\usepackage{subcaption}
 
 
 \setlength{\textwidth}{6.2in}
@@ -54,6 +57,8 @@ where $M$ is the Manning coefficient which is $M = 0.015$. The Manning coefficie
 \section{The Algorithm in CLAWPACK/GeoClaw}\label{Sec:Algo}
 We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used a special version of the f-wave approach described in \cite{DLG}. This solver combines the qualities of the Roe solver, HLLE-type solver and the f-wave approach. From the Roe solver it has the quality of giving a exact solution for a single-shock Riemann problem. Like the HLLE solver this method is depth positive semidefinite. The method has also a natural entropy-fix and gives a better approximation for problems with large rarefactions. The solver also maintains large class of steady states.
 The topography and drag term are incorporated in the Riemann problem. Stability and accuracy are improved by solving a transverse Riemann problem, where the waves moving normal to the cell are split into traverse direction.\\
+%todo 
+%there are some compiling problem when I try to compile the following 4 lines
 \eqm
 \qijnp &= \qijn - \dtdx (\apdqimj^n + \amdqiphj^n) - \dtdy (\bpdqimj^n + \bmdqiphj^n)\\
        &-\dtdx (\tFiphj^n - \tFimhj^n) - \dtdy (\tGijph^n - \tGijmh^n)
@@ -82,75 +87,75 @@ h_0(x,y)=&
 u_0(x,y) =& 0
 \enm
 In this comparison we will include results from OpenFOAM, an open source CFD software modeling air and water using the Navier-Stokes equations with turbulence model.
+\par
 Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height measured at the center location where the column will be mounted in the following cases. 
-The result from GeoClaw agrees quite well in general(Show zoom in plot). At around t=3.8, GeoClaw accurately predicted the arrival of the shock. 
+The result from GeoClaw agrees quite well in general. 
+If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
+In Figure \ref{fig:waveheight_nocolumn_zoomin}, GeoClaw accurately predicted the arrival of the shock at t=3.8s. The arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
 GeoClaw overestimates the peak water level a little, while OpenFOAM, gives a better value.
 After a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
 GeoClaw also predicts the arrival time for this peak quite well but overestimates the peak value by a small amount.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_nocolumn}
+        \caption{time from 0 to 18}
+        \label{fig:waveheight_nocolumn}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_nocolumn_zoomin}
+        \caption{time from 3 to 4}
+        \label{fig:waveheight_nocolumn_zoomin}
+    \end{subfigure}
     \caption{time history of wave height for case without a column. }
-    \label{fig:waveheight_nocolumn}
 \end{figure}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./plots/velocityU_nocolumn}
+    \caption{time history of streamwise velocity U for case without a column}
+    \label{fig:velocityU_nocolumn}
+\end{figure}
 Figure \ref{fig:velocityU_nocolumn} shows the time history of the streamwise velocity $u$ from GeoClaw and experiment. 
 Note that this velocity $u$ in both GeoClaw and experiment are depth-averaged. 
 GeoClaw accurately predicted the time of the velocity peak as well as the value of the peak. 
 After the initial jump in the velocity, GeoClaw overestimated the value of velocity.
 The reason why GeoClaw gives a higher velocity may be attributed to its depth-averaged property: Water at all depth are propagating with the same speed. In the experiment, the velocity is getting smaller the closer we get to the bottom. 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./plots/velocityU_nocolumn}
-    \caption{time history of streamwise velocity U for case without a column}
-    \label{fig:velocityU_nocolumn}
-\end{figure}
-
-
-
 
 \section{Dam Break with square column}\label{Sec:Square}
-Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at $0.04m$ ahead of the leading edge of the square column($0.1m$ ahead of center of the column).
-Note that this figure is from $t=3.0$ to $t=4.0$, which shows a shorter range compared to the previous figures.
+%todo
+%add a paragraph giving some introduction here
+Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at $0.04m$ ahead of the front face of the square column($0.1m$ ahead of center of the column).
+%Note that this figure is from $t=3.0$ to $t=4.0$, which shows a shorter range compared to the previous figures.
 There are two jumps in the result given by GeoClaw. A first jump with a change in water level from around $0.02$ to $0.1$ and a second jump from $0.1$ to a higher level of around $0.22$.
 If we recall from Figure \ref{fig:waveheight_nocolumn} that the wave height is around $0.1$, we can confirm that this first jump is caused by the shock wave originate in the dambreak. The second jump represents the wave reflected by the column.  
 If we compare the time interval from the first to the second jump between measurement location $x=11.0$ in Figure \ref{fig:waveheight_square_x=11.0} and location $11.02$ in Figure \ref{fig:waveheight_square_x=11.02} we can see that as we get closer to the column, this time interval gets shorter.
 \par
-There are two distinct differences between the GeoClaw and the experimental results. First, in the experiment, the dambreak causes a smooth increase in water height. Second, the arrival time of the peak predicted by GeoClaw is about $0.08$ seconds ahead of the time measured in the experiment.  
+There are two distinct differences between the GeoClaw and the experimental results. (1)In the experiment, the dambreak causes a smooth increase in water height. (2)The arrival time of the peak predicted by GeoClaw is about $0.08$ seconds ahead of the time measured in the experiment.  
 \par
 
-%todo
-The difference in shock shape can be explained by the difference between the shallow water equations that GeoClaw solves and Navier-Stokes equations that better describe the physics.
+The difference in shock shape can be explained by the difference between the shallow water equations that GeoClaw solves and the real physics of fluid. 
 In shallow water equations, fluid viscosity is not taken into account, while it is significant in real physics.
 This causes the shock remain its shape as it propagates in shallow water equation while smooth out in experiment.
 Thus we see a jump in result from shallow water equation while a smooth increase in experiment result.
 \par
-%todo
-%If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
-%In Figure \ref{fig:waveheight_nocolumn_zoomin}, arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
 This time interval is much smaller than that in Figure \ref{fig:waveheight_square_x=11.0} though data are not measured at exactly the same point for this two plots. 
 This difference indicates that the column gives more resistance to shock waves in experiment than it does in shallow water equation model. 
 \par
-A simple analysis to this phenomenon is draw as below.
+A simple analysis to this phenomenon is drawn as below.
 The shallow water equations are essentially a system of hyperbolic PDEs. The solution depends on initial condition along characteristics in the spatio-temporal domain. 
 Thus before the propagating shock arrives, all water downstream the shock has zero velocity. 
 In other words, it even does not know there is a column before the shock hits the column.
 This can be verified by checking the history of the wave height measured at exactly the same location, $0.04m$ ahead of the leading edge of the square column, but in different cases, one with a square column and one without.
 This comparison is showed in Figure \ref{fig:waveheight_x11_comparison}. As we expected, there is no difference in arrival time of the shock wave.
-In contrast, the Navier-Stokes equations are a system of PDEs of elliptic type. 
-In real physics governed by Navier-Stokes equations, when front of the shock wave gets close to the column, water downstream it and upstream column are affected and resist the comming of wave to some extent. 
+In contrast, the Navier-Stokes equations, which better describes the real physics, are a system of PDEs of elliptic type. 
+In real physics or in Navier-Stokes equations, when front of the shock wave gets close to the column, water downstream it and upstream column are affected (have nonzero velocity) and resist the comming of wave to some extent. 
 This slows down the propagating speed of shock wave when it comes close to the column in real world and thus shifts the peak toward later time in the plots.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./plots/waveheight_square_x11}
     \caption{time history of wave height for case with square column}
     \label{fig:waveheight_square_x=11.0}
-\end{figure}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./plots/waveheight_nocolumn_zoomin}
-    \caption{time history of wave height for case without column (zoom in)}
-    \label{fig:waveheight_nocolumn_zoomin}
 \end{figure}
 \begin{figure}[h!]
     \centering
