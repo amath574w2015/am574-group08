@@ -36,12 +36,12 @@ In this paper we compare the solution of the shallow water equations with experi
 Three different cases are simulated and compared. In the first case a simple dam break problem is performed and evaluated.
 The history of the wave height and velocity at the center location, where the column will be mounted are compared. 
 In the second case, a square column is added and wave height at various locations in front of the column are measured and compared. 
-For the third case, the square column is replaced by a cylinder column and the same variables are measured and compared. 
+For the third case, the square column is replaced by a cylindrical column and the same variables are measured and compared. 
 The discrepancy between the GeoClaw simulation and the experimental results are discussed and analyzed.
 \end{abstract}
 
 \section{Introduction}\label{Sec:intro}
-The aim of this work is to compare computational results using CLAWPACK with experimental results. This is done for the interaction of a bore and a free-standing coastal structure. The experiment results are given by Halld\'or \'Arnason \cite{HA}. We model the water using the shallow water equations which will be introduced in Section \ref{Sec:ShallowWater}. We solve these equations using CLAWPACK's GeoClaw solver which is specialized for geophysical flow problems. In Section \ref{Sec:Algo} we show how GeoClaw solves the shallow water equations and how it handles the topography. In Section \ref{Sec:Setup} we describe the setup of the test case. We focus on three cases. First we compare wave height and velocity for the pure dambreak without structure in the domain in Section \ref{Sec:Zero}. Second we add a square column and compare wave height upstream as well as downstream of the column in \ref{Sec:Square}. Lastly in Section \ref{Sec:Cylinder} we compare the wave height at the same location but for a cylinder column. We close this paper with a conclusion in Section \ref{Sec:Conclusion}.
+The aim of this work is to compare computational results using CLAWPACK with experimental results. This is done for the interaction of a bore and a free-standing coastal structure. The experimental results are given by Halld\'or \'Arnason \cite{HA}. We model the water using the shallow water equations which will be introduced in Section \ref{Sec:ShallowWater}. We solve these equations using CLAWPACK's GeoClaw solver which is specialized for geophysical flow problems. In Section \ref{Sec:Algo} we show how GeoClaw solves the shallow water equations and how it handles the topography. In Section \ref{Sec:Setup} we describe the setup of the test case. We focus on three cases. First we compare wave height and velocity for the pure dambreak without structure in the domain in Section \ref{Sec:Zero}. Second we add a square column and compare wave height upstream as well as downstream of the column in \ref{Sec:Square}. Lastly in Section \ref{Sec:Cylinder} we compare the wave height at the same location but for a cylindrical column. We close this paper with a conclusion in Section \ref{Sec:Conclusion}.
 \section{The shallow water equations}\label{Sec:ShallowWater}
 We write the 2D depth averaged shallow water equations as
 \eqm
@@ -55,15 +55,18 @@ D = \frac{gM^2\sqrt{(u^2+v^2)}}{h^{5/3}}
 \en
 where $M$ is the Manning coefficient which is $M = 0.015$. The Manning coefficient is an empirical coefficient that includes the roughness of the surface. The initial condition is given by a jump in the water depth $h$. The water is initially at rest.
 \section{The Algorithm in CLAWPACK/GeoClaw}\label{Sec:Algo}
-We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used a special version of the f-wave approach described in \cite{DLG}. This solver combines the qualities of the Roe solver, HLLE-type solver and the f-wave approach. From the Roe solver it has the quality of giving a exact solution for a single-shock Riemann problem. Like the HLLE solver this method is depth positive semidefinite. The method has also a natural entropy-fix and gives a better approximation for problems with large rarefactions. The solver also maintains large class of steady states.
+We solve the shallow water equations with CLAWPACK. Specifically we used the GeoClaw solver which used a special version of the f-wave approach described in \cite{DLG}. This solver combines the qualities of the Roe solver, HLLE-type solver and the f-wave approach. From the Roe solver it has the quality of giving an exact solution for a single-shock Riemann problem. Like the HLLE solver this method is depth positive semidefinite. The method has also a natural entropy-fix and gives a better approximation for problems with large rarefactions. The solver also maintains a large class of steady states.
 The topography and drag term are incorporated in the Riemann problem. Stability and accuracy are improved by solving a transverse Riemann problem, where the waves moving normal to the cell are split into traverse direction.\\
-%todo 
-%there are some compiling problem when I try to compile the following 4 lines
+In more detail, we have the 2D hyperbolic system
+\eq
+q_t + A(q,x,y)q_x + B(q,x,y)q_y = 0
+\en
+with the wave propagation algorithm
 \eqm
 \qijnp &=& \qijn - \dtdx \left(\apdqimj^n + \amdqiphj^n\right) - \dtdy \left(\bpdqijm^n + \bmdqijph^n\right)\nono\\
        &-&\dtdx \left(\tFiphj^n - \tFimhj^n\right) - \dtdy \left(\tGijph^n - \tGijmh^n\right)
 \enm
-In the f-wave approache the flux is decomposed the following way
+In the f-wave approach the flux is decomposed the following way
 \eq
 f(\qi) -f(\qim) = \psum \WZ_{i-1/2}^p = \psum \beta^p_{i-1/2}r^p_{i-1/2}
 \en
@@ -72,7 +75,8 @@ Instead of waves $\W$ representing the jump in $Q$ we have now waves $\WZ$ repre
 \eq
 \amdqimh = \sum_{p:s^p_{i-1/2}<0} \WZ_{i-1/2}^p  \quad \text{and} \quad  \apdqimh = \sum_{p:s^p_{i-1/2}>0} \WZ_{i-1/2}^p  
 \en
-for the shallow water equations we are going to have
+Roe eigenpairs are chosen to include the property of the Roe solver.
+The augmented vector is then split to provide more than $m$ waves since approximating a transonic rarefaction with a single wave can produce non-physical entropy violating numerical solutions. For the shallow water equations we have then
 \eq
 \begin{bmatrix}
 H_i - H_{i-1}\\
@@ -84,19 +88,19 @@ B_i - B_{i-1}\\
 \en
 where $\varphi (q) = (hu^2 +\frac{1}{2}gh^2)$ is the momentum flux and $B_i$ and $B_{i-1}$ are cell-averaged approximations of the bathymetry of the respective cell.
 \par
-In the GeoClaw solver adaptive mesh refinement (AMR) can be used. Multiple levels can be use where for each level the domain is specified. The topography for the problem is defined in a file. The topography goes into the shallow water equations through the right hand side $B$. The value from the file are converted into cell averages using a picewise bilinear function that interpolates the pointwise values. $B$ is then obtained by evaluating the exact integral of this function over the cell. 
+In the GeoClaw solver adaptive mesh refinement (AMR) can be used. Multiple levels can be used where for each level the domain is specified. The topography for the problem is defined in a file. The topography goes into the shallow water equations through the right hand side $B$. The values from the file are converted into cell averages using a picewise bilinear function that interpolates the pointwise values. $B$ is then obtained by evaluating the exact integral of this function over the cell. 
 \section{The setup of the test case}\label{Sec:Setup}
-The benchmark experiment was conducted in a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge the column located downstream.
-We are going to simulate 2 cases in the experiment. The 1st case purely generated the single bore, the 2nd case generated the bore to impinge the column with one side facing the flow.
+The benchmark experiment was conducted in a 16.6 m long, 0.6m wide and 0.45 m deep wave tank. When a gate is lifted, it generates a single bore to impinge on the column located downstream.
+We are going to simulate 2 cases in the experiment. In the first case a bore is generated and propagates in the tank without the column. In the 2nd case a bore is generated to impinge on the column with one side facing the flow.
 \par
-In the 1st case, wave height and streamwise velocity, U, at different depth, at where the center of column should be located are measured. In the 2nd case, the wave height in front and behind the column are measured.
+In the 1st case, wave height and streamwise velocity, U, at different depths, where the center of column should be located are measured. In the 2nd case, the wave height in front of and behind the column are measured.
         \begin{figure}[h!]
             \centering
             \includegraphics[width=0.5\textwidth]{../proposal/figures/Diagram_case}
             \caption{Diagram of experiment apparatus}
         \end{figure}
 
-In all cases below, boundary conditions are all set to reflection wall. 
+In all cases below, boundary conditions are all set to reflecting walls. 
 \section{Dam Break}\label{Sec:Zero}
 The initial condition for this and the following cases is given by
 \eqm
@@ -113,8 +117,8 @@ Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height m
 The result from GeoClaw agrees quite well in general. 
 If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
 In Figure \ref{fig:waveheight_nocolumn_zoomin}, GeoClaw accurately predicted the arrival of the shock at t=3.8s. The arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
-GeoClaw overestimates the peak water level a little, while OpenFOAM, gives a better value.
-After a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
+GeoClaw overestimates the peak water level a little, while OpenFOAM gives a better value.
+At a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
 GeoClaw also predicts the arrival time for this peak quite well but overestimates the peak value by a small amount.
 \begin{figure}[h!]
     \centering
@@ -149,7 +153,7 @@ The reason why GeoClaw gives a higher velocity may be attributed to its depth-av
 Figure \ref{fig:waveheight_square_x=11.0} gives a comparison of the time history of the wave height measured at $0.04m$ ahead of the front face of the square column($0.1m$ ahead of center of the column).
 %Note that this figure is from $t=3.0$ to $t=4.0$, which shows a shorter range compared to the previous figures.
 There are two jumps in the result given by GeoClaw. A first jump with a change in water level from around $0.02$ to $0.1$ and a second jump from $0.1$ to a higher level of around $0.22$.
-If we recall from Figure \ref{fig:waveheight_nocolumn} that the wave height is around $0.1$, we can confirm that this first jump is caused by the shock wave originate in the dambreak. The second jump represents the wave reflected by the column.  
+If we recall from Figure \ref{fig:waveheight_nocolumn} that the wave height is around $0.1$, we can confirm that this first jump is caused by the shock wave originating from the dambreak. The second jump represents the wave reflected by the column.  
 If we compare the time interval from the first to the second jump between measurement location $x=11.0$ in Figure \ref{fig:waveheight_square_x=11.0} and location $11.02$ in Figure \ref{fig:waveheight_square_x=11.02} we can see that as we get closer to the column, this time interval gets shorter.
 \par
 There are two distinct differences between the GeoClaw and the experimental results. (1)In the experiment, the dambreak causes a smooth increase in water height. (2)The arrival time of the peak predicted by GeoClaw is about $0.08$ seconds ahead of the time measured in the experiment.  
@@ -166,10 +170,10 @@ This difference indicates that the column gives more resistance to shock waves i
 A simple analysis to this phenomenon is drawn as below.
 The shallow water equations are essentially a system of hyperbolic PDEs. The solution depends on initial condition along characteristics in the spatio-temporal domain. 
 Thus before the propagating shock arrives, all water downstream the shock has zero velocity. 
-In other words, it even does not know there is a column before the shock hits the column.
+In other words, it does not know there is a column before the shock hits the column.
 This can be verified by checking the history of the wave height measured at exactly the same location, $0.04m$ ahead of the leading edge of the square column, but in different cases, one with a square column and one without.
 This comparison is showed in Figure \ref{fig:waveheight_x11_comparison}. As we expected, there is no difference in arrival time of the shock wave.
-In contrast, the Navier-Stokes equations, which better describes the real physics, are a system of PDEs of elliptic type. 
+In contrast, the Navier-Stokes equations, which better describes the real physics, are a system of PDEs of parabolic type. 
 In real physics or in Navier-Stokes equations, when front of the shock wave gets close to the column, water downstream it and upstream column are affected (have nonzero velocity) and resist the comming of wave to some extent. 
 This slows down the propagating speed of shock wave when it comes close to the column in real world and thus shifts the peak toward later time in the plots.
 \begin{figure}[h!]
@@ -231,8 +235,8 @@ The difference between the arrival time of the peak still exists as expected. Af
 
 
 
-\section{Dam Break with cylinder column}\label{Sec:Cylinder}
-Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the front point of cylinder column($0.1m$ ahead of the center of the column).
+\section{Dam Break with cylindrical column}\label{Sec:Cylinder}
+Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the front point of cylindrical column($0.1m$ ahead of the center of the column).
 %Since the way GeoClaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 %Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
 Similar feature as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
@@ -243,10 +247,10 @@ Thus in experiment, the square column can block the flow in in a more efficient 
 This explains why we see a lower peak of wave height as well as less steep curve for history of wave height in case with the cylinder in the experiment. 
 In GeoClaw, a geometry is represented with quadrilateral cells. 
 In the cylinder case, the cylinder is represented with square cells since our background mesh is simple structured quadrilateral mesh with square cells.
-Based on this, we can deduce in GeoClaw, when the shock wave hits the cylinder, it is hitting onto many small faces vertical to flow direction at different locations. 
+Based on this, we can deduce in GeoClaw, when the shock wave hits the cylinder, it is hitting onto many small faces vertical to the flow direction at different locations. 
 In other words, there is no cell which has a normal vector of front face pointing toward oblique direction other than the direction fluid comes.  
-Thus it is similar to hitting onto one big face vertical to flow direction, which is the case with square column.  
-This is why we get similar result in GeoClaw for case with square column and case with cylinder.
+Thus it is similar to hitting onto one big face vertical to the flow direction, which is the case with a square column.  
+This is why we get similar results in GeoClaw for the case with square column and the case with a cylinder.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
@@ -259,7 +263,7 @@ This is why we get similar result in GeoClaw for case with square column and cas
         \caption{at x = 11.04}
         \label{fig:waveheight_cylinder_x=11.04}
     \end{subfigure}
-    \caption{time history of wave height for cylinder column case}
+    \caption{time history of wave height for cylindrical column case}
 \end{figure}
 
 %\begin{figure}[h!]
