@@ -255,7 +255,7 @@ Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave h
 %Since the way GeoClaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 %Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
 Similar feature as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
-However, the wave height at the second peak in this case is almost the same as that in square column case (around $0.22m$ in both case), while this feature is quite different for the experimental results between the two cases.
+We can see a decrease in peak value for this case compared with the same plots for square column case. However, this decrease between two cases from GeoClaw is not as large as that between two cases from experiment. 
 \par
 Note that diameter of the cylinder is equal to half the length of the square column. 
 Thus in experiment, the square column can block the flow in in a more efficient way than cylinder does, since the cylinder has a smoother shape for the fluid to pass by. 
@@ -266,10 +266,12 @@ Based on this, we can say that in GeoClaw, when the shock wave hits the cylinder
 In other words, there is no cell which has a normal vector of front face pointing toward oblique direction other than the direction the fluid comes.  
 Thus, it is similar to hitting onto one big face vertical to the flow direction, which is the case with a square column.  
 This is why we get similar results in GeoClaw for the case with square column and the case with a cylinder.
+Figure \ref{fig:waveheight_square_x=11.0} also gives results after we refine the mesh. As the mesh becomes finer, the peak value decrease as we expect.
+But with a even finer mesh, we cannot decrease the peak value, which indicates that a mapped grid could be used to improve the solution.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x11_finer}
+        \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x11_finer_new}
         \caption{at x = 11}
         \label{fig:waveheight_cylinder_x=11.0}
     \end{subfigure}
@@ -307,7 +309,7 @@ After the peak, GeoClaw gives a satisfactory prediction of the wave height.
 %\end{figure}
 
 \section{Conclusion}\label{Sec:Conclusion}
-In this work we compared numerical solutions of the shallow water equations using CLAWPACK's GeoClaw solver with experimental results. We saw that GeoClaw underestimates the arrival time of the shock by only 0.02s. This is in the same range as OpenFOAM predicts the arrival time. The shape of the wave although differs from the experiment and prediction form OpenFOAM. Independent of the case the arrival time is predicted always the same in GeoClaw where in the experiment the wave seems to slow down by a small amount if there is an obstacle. These discrepancies have to do with the hyperbolic character of the shallow water equations, missing turbulence model as well as depth averaging. In general GeoClaw agrees well with the measured water levels at various locations for the square as well as the cylindrical column. In the case of the cylindrical column a mapped grid could be used to improve the solution, since in the present case the cylinder shape is approximated by a quadrilateral grid. This work could also be extended by comparing the forces on the structure by using $F =\frac{1}{2}C_D\rho d hu^2$.
+In this work we compared numerical solutions of the shallow water equations using CLAWPACK's GeoClaw solver with experimental results. We saw that GeoClaw underestimates the arrival time of the shock by only 0.02s. This is in the same range as OpenFOAM predicts the arrival time. The shape of the wave although differs from the experiment and prediction from OpenFOAM. Independent of the case the arrival time is predicted always the same in GeoClaw where in the experiment the wave seems to slow down by a small amount if there is an obstacle. These discrepancies have to do with the hyperbolic character of the shallow water equations, missing turbulence model as well as depth averaging. In general GeoClaw agrees well with the measured water levels at various locations for the square as well as the cylindrical column. In the case of the cylindrical column a mapped grid could be used to improve the solution, since in the present case the cylinder shape is approximated by a quadrilateral grid. This work could also be extended by comparing the forces on the structure by using $F =\frac{1}{2}C_D\rho d hu^2$.
  
 {\footnotesize
 \begin{thebibliography}{100}
