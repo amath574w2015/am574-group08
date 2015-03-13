@@ -33,11 +33,11 @@
 \begin{abstract}
 In this paper we compare the solution of the shallow water equations with experimental results. The experiment simulates the interaction between an incident bore and a free-standing coastal structure. The shallow water equations are solved using the GeoClaw solver of the CLAWPACK software.
 \par
-Three different cases are simulated and compared. In the first case a simple dam break problem is performed and evaluated.
-The history of the wave height and velocity at the center location, where the column will be mounted, are compared. 
-In the second case, a square column is added and wave height at various locations in front of the column are measured and compared. 
-For the third case, the square column is replaced by a cylindrical column and the same variables are measured and compared. 
-The discrepancy between the GeoClaw simulation and the experimental results are discussed and analyzed.
+We simulate and compare three different cases. In the first case we performe and evaluate a simple dam break problem.
+We compare the history of the wave height and velocity at the center location, where the column will be mounted. 
+In the second case we add a square column and compare wave height at various locations in front of and behind the column. 
+For the third case we replace the square column by a cylindrical column and compare the same variables with the experimental results. 
+We analyze and discuss the discrepancy between the GeoClaw simulation and the experimental results.
 \end{abstract}
 
 \section{Introduction}\label{Sec:intro}
@@ -117,7 +117,7 @@ In this comparison we will include results from OpenFOAM, an open source CFD sof
 Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height, measured at the center location where the column will be mounted in the following cases. 
 The result from GeoClaw agrees quite well in general. 
 If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
-In Figure \ref{fig:waveheight_nocolumn_zoomin}, GeoClaw accurately predicted the arrival of the shock at t=3.8s. The arrival time of peak predicted by geoclaw is almost the same as that from experiment (only about 0.02 second earlier).  
+In Figure \ref{fig:waveheight_nocolumn_zoomin}, GeoClaw accurately predicted the arrival of the shock at t=3.8s. The arrival time of peak predicted by GeoClaw is almost the same as that from experiment (only about 0.02 second earlier).  
 GeoClaw overestimates the peak water level a little, while OpenFOAM gives a better value.
 At a later time, the wave gets reflected at the right wall of the tank, which can be seen by the second jump in wave height. 
 GeoClaw also predicts the arrival time for this peak quite well, but overestimates the peak value by a small amount.
