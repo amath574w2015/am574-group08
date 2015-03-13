@@ -107,13 +107,19 @@ The initial condition for this and the following cases is given by
 \eqm
 h_0(x,y)=& 
 \begin{cases}
-0.25 & x<5.9 \\
+0.25 & x<5.9 \label{eq:init1}\\
 0.02 & \text{otherwise}
 \end{cases}\\
-u_0(x,y) =& 0
+u_0(x,y) =& 0\label{eq:init2}
 \enm
 In this comparison we will include results from OpenFOAM, an open source CFD software modeling air and water using the Navier-Stokes equations with turbulence model.
 \par
+If we analyze the Rankine-Hugoniot condition of the initial conditions (\ref{eq:init1}) and (\ref{eq:init2}) for the shallow water equations:
+\eqm
+s(h_*-h) &=& h_*u_* - hu\\
+s(h_*u_*-hu) &=& hu_*^2-hu^2 +\frac{1}{2}g(h_*^2-h^2)
+\enm
+we see that we can not find a $s$ that satisfies both equations, since $u$ and $u*$ are zero. This means the Rankine-Hugoniot condition is not satisfied and we expect a right and left going wave originating form the dam break.
 Figure \ref{fig:waveheight_nocolumn} shows the time history of the wave height, measured at the center location where the column will be mounted in the following cases. 
 The result from GeoClaw agrees quite well in general. 
 If we zoom in Figure \ref{fig:waveheight_nocolumn} for smaller time range from $t=3s$ to $t=4s$, we get Figure \ref{fig:waveheight_nocolumn_zoomin}.
