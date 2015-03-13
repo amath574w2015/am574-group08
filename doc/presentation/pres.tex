@@ -1,0 +1,165 @@
+% Created 2015-03-12 Thu 16:59
+\documentclass[xcolor=dvipsnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\mode<beamer>{\usetheme{boxes}}
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme[named=RoyalBlue]{structure}
+\setbeamercolor{boxcol}{fg=black,bg=black!10}
+\setbeamercolor{lowercolgreen}{fg=black,bg=green!10}
+\usepackage{pslatex}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{scripttab}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\vector}     {\boldsymbol}
+\newcommand{\uvec}            {\vector{u}}
+\newcommand{\vvec}            {\vector{v}}
+\newcommand{\wvec}            {\vector{w}}
+\newcommand{\svec}            {\vector{s}}
+\newcommand{\Bili}[2]      {\left(#1,#2\right)}
+\institute{ AM574 Conservation Laws and Finite Volume Methods \\
+University of Washington, Seattle USA}
+\input{../macros/RJLmacros}
+\usetheme{default}
+\author{Xinsheng Qin, Kaspar Müller}
+\date{March 13, 2015}
+\title{Hydraulic bore interaction with a column - A comparison between the solution of the shallow equation and experimental results}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 23.4.1 (Org mode 8.2.5g)}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{figures/back02.pdf}}
+
+\section{}
+\label{sec-1}
+\section{Introduction}
+\label{sec-2}
+\begin{frame}[label=sec-2-1]{Introduction}
+\end{frame}
+
+\section{The Model}
+\label{sec-3}
+\begin{frame}[label=sec-3-1]{The Shallow Water Equations in 2D}
+\begin{eqnarray*}
+h_t + (uh)_x + (vh)_y &=& 0\nono\\
+(hu)_t + (huv)_y +(hu^2 + \frac{1}{2}gh^2)_x &=& -ghB_x - Du\\
+(hv)_t + (huv)_x +(hv^2 + \frac{1}{2}gh^2)_y &=& -ghB_y - Dv
+\end{eqnarray*}
+where $B$ is the topography and $D$ the drag coefficient. $g$ stands for the gravitational acceleration.
+\end{frame}
+
+\section{Framework and Method}
+\label{sec-4}
+\begin{frame}[label=sec-4-1]{CLAWPACK/GeoClaw}
+\begin{block}{Software framework}
+\end{block}
+\begin{block}{Method}
+\end{block}
+\end{frame}
+
+\section{Test cases}
+\label{sec-5}
+\begin{frame}[label=sec-5-1]{Setup of the test case}
+\begin{columns}
+\begin{column}{1.0\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../proposal/figures/Diagram_case.jpg} \\
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=sec-5-2]{Case01 - Dam Break}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{\qquad\qquad 0 $\le$ t $\le$ 18}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_nocolumn.png} \\
+\begin{itemize}
+\item Wave arrives at t=3.8s
+\item Second jump from reflection from right wall
+\end{itemize}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{\qquad\qquad 3 $\le$ t $\le$ 4}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_nocolumn_zoomin.png}  \\
+\begin{itemize}
+\item Geoclaw 0.02s ahead
+\item Peak value overestimated
+\end{itemize}
+\vskip5mm
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label=sec-5-3]{Case02 - Dam Break with Square Column}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_square_x11.png} \\
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_square_x1102.png}  \\
+\end{block}
+\end{column}
+\end{columns}
+
+\begin{block}{}
+\begin{itemize}
+\item Second jump reflection from the column
+\item Smooth increase in wave height in experiment
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label=sec-5-4]{Case03 - Dam Break with Cylindrical Column}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x11.png} \\
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x1104_largerTimeScale.png}  \\
+\vskip5mm
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Outlook}
+\label{sec-6}
+\begin{frame}[label=sec-6-1]{Conclusion and Outlook}
+\end{frame}
+% Emacs 23.4.1 (Org mode 8.2.5g)
+\end{document}
