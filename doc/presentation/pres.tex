@@ -1,4 +1,4 @@
-% Created 2015-03-12 Thu 16:59
+% Created 2015-03-13 Fri 15:17
 \documentclass[xcolor=dvipsnames]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -41,7 +41,7 @@ University of Washington, Seattle USA}
 \usetheme{default}
 \author{Xinsheng Qin, Kaspar Müller}
 \date{March 13, 2015}
-\title{Hydraulic bore interaction with a column - A comparison between the solution of the shallow equation and experimental results}
+\title{Hydraulic bore interaction with a column \\ A comparison between the solution of the shallow equation and experimental results}
 \hypersetup{
   pdfkeywords={},
   pdfsubject={},
@@ -60,26 +60,141 @@ University of Washington, Seattle USA}
 \section{Introduction}
 \label{sec-2}
 \begin{frame}[label=sec-2-1]{Introduction}
+Comparison between Solution of the shallow water equations solved with CLAWPACK and experimental results.
+\begin{itemize}
+\item Experiment by Halldór Árnason
+\item Comaprison of water level at various locations
+\item 3 Cases
+\begin{enumerate}
+\item Dam Break
+\item Dam Break with square column
+\item Dam Break with cylindrical column
+\end{enumerate}
+\end{itemize}
 \end{frame}
 
 \section{The Model}
 \label{sec-3}
-\begin{frame}[label=sec-3-1]{The Shallow Water Equations in 2D}
+\begin{frame}[label=sec-3-1]{The Model equations}
+\begin{block}{2D depth averaged  shallow water equations}
 \begin{eqnarray*}
 h_t + (uh)_x + (vh)_y &=& 0\nono\\
 (hu)_t + (huv)_y +(hu^2 + \frac{1}{2}gh^2)_x &=& -ghB_x - Du\\
 (hv)_t + (huv)_x +(hv^2 + \frac{1}{2}gh^2)_y &=& -ghB_y - Dv
 \end{eqnarray*}
 where $B$ is the topography and $D$ the drag coefficient. $g$ stands for the gravitational acceleration.
+\end{block}
 \end{frame}
 
 \section{Framework and Method}
 \label{sec-4}
 \begin{frame}[label=sec-4-1]{CLAWPACK/GeoClaw}
-\begin{block}{Software framework}
+\begin{block}{GeoClaw}
+\begin{itemize}
+\item Geophysical flow problems
+\item Specialized version of CLAPACK and AMRClaw
+\end{itemize}
 \end{block}
-\begin{block}{Method}
+
+\begin{block}{Requirements for solver}
+\begin{itemize}
+\item Flow over topography
+\item Handle non-trivial steady state
+\begin{itemize}
+\item Ocean at rest
+\end{itemize}
+\item Dry state handling
+\item Multiple scales in space and time
+\end{itemize}
 \end{block}
+\end{frame}
+
+\begin{frame}[label=sec-4-2]{Riemann solver}
+\begin{block}{Approaches}
+\begin{itemize}
+\item f-wave approach
+\begin{itemize}
+\item guarantees numerical conservation
+\item source terms simply included in solver
+\item not clear how to prevent depth negativity
+\end{itemize}
+\item HLLE solver
+\begin{itemize}
+\item guarantees depth non-negativity
+\item fails to capture large transonic rarefactions
+\item not well balanced for steady states
+\end{itemize}
+\end{itemize}
+\end{block}
+
+\begin{block}{Augmented Riemann solver}
+\begin{itemize}
+\item Split into more than two waves
+\begin{itemize}
+\item Add 1 wave to have two waves to represent large transonic rarefactions
+\item Add 1 wave to incorporate topography - balance for steady state
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label=sec-4-3]{Wave propagation algorithm}
+\begin{itemize}
+\item 2D hyperbolic system
+\end{itemize}
+\begin{equation*}
+q_t + A(q,x,y)q_x + B(q,x,y)q_y = 0
+\end{equation*}
+\begin{itemize}
+\item Approximation of the state
+\end{itemize}
+\begin{eqnarray*}
+\qijnp = \qijn &-& \dtdx \left(\apdqimj^n + \amdqiphj^n\right) \\
+               &-& \dtdy \left(\bpdqijm^n + \bmdqijph^n\right)\\
+               &-&\dtdx \left(\tFiphj^n - \tFimhj^n\right) - \dtdy \left(\tGijph^n - \tGijmh^n\right)
+\end{eqnarray*}
+\begin{itemize}
+\item Fluctuations ${\cal A}^\pm\Delta \Q_{i\mp 1/2,j}^n$ and ${\cal B}^\pm\Delta \Q_{i,j\mp 1/2,j}^n$
+\item Second order correction terms $\tilde F_{i\pm 1/2,j}^n$ and $\tilde G_{i,j\pm 1/2}^n$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label=sec-4-4]{Approach in 1D}
+\begin{block}{f-wave approach}
+\begin{equation*}
+f(\qi) -f(\qim) = \psum \WZ_{i-1/2}^p = \psum \beta^p_{i-1/2}r^p_{i-1/2}
+\end{equation*}
+\begin{itemize}
+\item jumps in the flux instead of state
+\end{itemize}
+\end{block}
+
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{block}{Fluctuations}
+\begin{equation*}
+\begin{align}
+\amdqimh &= \sum_{p:s^p_{i-1/2}<0} \WZ_{i-1/2}^p \\
+\apdqimh &= \sum_{p:s^p_{i-1/2}>0} \WZ_{i-1/2}^p  
+\end{align}
+\end{equation*}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{Decomposition into waves}
+\begin{equation*}
+\begin{bmatrix}
+H_i - H_{i-1}\\
+HU_i - HU_{i-1}\\
+\varphi(\qi) - \varphi(\qim) \\
+B_i - B_{i-1}\\
+\end{bmatrix}
+= \sum_{p=0}^3 \alpha^p_{i-1/2}w^p_{i-1/2}
+\end{equation*}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 \section{Test cases}
@@ -106,19 +221,46 @@ where $B$ is the topography and $D$ the drag coefficient. $g$ stands for the gra
 \end{block}
 \end{column}
 
-\begin{column}{0.5\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{block}{\qquad\qquad 3 $\le$ t $\le$ 4}
 \includegraphics[width=.9\linewidth]{../paper/plots/waveheight_nocolumn_zoomin.png}  \\
 \begin{itemize}
-\item Geoclaw 0.02s ahead
+\item GeoClaw 0.02s ahead
 \item Peak value overestimated
 \end{itemize}
 \vskip5mm
 \end{block}
 \end{column}
 \end{columns}
+
+\begin{block}{}
+\href{../paper/plots/animation/cross_section_nocolumn.mp4}{movie}
+\end{block}
 \end{frame}
+
 \begin{frame}[label=sec-5-3]{Case02 - Dam Break with Square Column}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_square_nearcolumn/frame0009fig1.png}\\
+    \includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_square_nearcolumn/frame0010fig1.png}\\
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_square_nearcolumn/frame0011fig1.png}\\
+    \includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_square_nearcolumn/frame0012fig1.png}\\
+\end{block}
+\end{column}
+\end{columns}
+
+\begin{block}{}
+\href{../paper/plots/animation/surface_elevation_square_nearcolumn.mp4}{movie}
+\end{block}
+\end{frame}
+
+\begin{frame}[label=sec-5-4]{Case02 - Dam Break with Square Column}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{block}{}
@@ -135,31 +277,104 @@ where $B$ is the topography and $D$ the drag coefficient. $g$ stands for the gra
 
 \begin{block}{}
 \begin{itemize}
-\item Second jump reflection from the column
-\item Smooth increase in wave height in experiment
+\item Two jumps in GeoClaw result
+\begin{itemize}
+\item One originates in dam break
+\item Another results from wave reflected by column
+\end{itemize}
+\item Time interval becomes shorter
+\item Difference between GeoClaw result and experiment result:
+\begin{itemize}
+\item Shock shape
+\item Arrival time of the shock
+\end{itemize}
 \end{itemize}
 \end{block}
 \end{frame}
 
-\begin{frame}[label=sec-5-4]{Case03 - Dam Break with Cylindrical Column}
+\begin{frame}[label=sec-5-5]{Case02 - Dam Break with Square Column}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{block}{}
-\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x11.png} \\
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_square_x1104_largerTimeRange.png} \\
+\begin{itemize}
+\item Wave height at front face
+\item Wave height at back face
+\item Comparison between cases with and without column
+\end{itemize}
+\vskip13mm
 \end{block}
 \end{column}
 
 \begin{column}{0.5\textwidth}
 \begin{block}{}
-\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x1104_largerTimeScale.png}  \\
-\vskip5mm
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_square_back.png}  \\
+     \includegraphics[width=.9\linewidth]{../paper/plots/waveheight_x11_comparison.png}  \\
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
+\begin{frame}[label=sec-5-6]{Case03 - Dam Break with Cylindrical Column}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_cylinder_nearcolumn/frame0014fig1.png}\\
+    \includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_cylinder_nearcolumn/frame0015fig1.png}\\
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_cylinder_nearcolumn/frame0016fig1.png}\\
+    \includegraphics[width=.9\linewidth]{../paper/plots/surface_elevation_cylinder_nearcolumn/frame0017fig1.png}\\
+\end{block}
+\end{column}
+\end{columns}
+
+\begin{block}{}
+\href{../paper/plots/animation/surface_elevation_cylinder_nearcolumn.mp4}{movie}
+\end{block}
+\end{frame}
+
+\begin{frame}[label=sec-5-7]{Case03 - Dam Break with Cylindrical Column}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x11_finer_new.png} \\
+\begin{itemize}
+\item Mesh refinement
+\item History of wave height at front face and back of the column
+\end{itemize}
+\vskip15mm
+\end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x1104_largerTimeScale_finer.png}  \\
+     \includegraphics[width=.9\linewidth]{../paper/plots/waveheight_cylinder_x1116_finer.png} \\
+\end{block}
+\end{column}
+\end{columns}
+
+\begin{block}{}
+\vskip5mm
+\end{block}
+\end{frame}
 \section{Outlook}
 \label{sec-6}
 \begin{frame}[label=sec-6-1]{Conclusion and Outlook}
+\begin{itemize}
+\item For the dam break problem, GeoClaw underestimates the arrival time of the shock by only 0.02s
+\item In both cases with cylinder and square column, GeoClaw overestimates the arrival time of the shock
+\item In general GeoClaw agrees well with the measured water levels at various locations for the square as well as the cylindrical column
+\end{itemize}
+\begin{block}{Future work}
+\begin{itemize}
+\item A mapped grid could be used to improve the solution in cylindrical column case
+\item Comparing the forces on the structure by using $F =\frac{1}{2}C_D\rho d hu^2$
+\end{itemize}
+\end{block}
 \end{frame}
 % Emacs 23.4.1 (Org mode 8.2.5g)
 \end{document}
