@@ -33,7 +33,7 @@
 \begin{abstract}
 In this paper we compare the solution of the shallow water equations with experimental results. The experiment simulates the interaction between an incident bore and a free-standing coastal structure. The shallow water equations are solved using the GeoClaw solver of the CLAWPACK software.
 \par
-We simulate and compare three different cases. In the first case we performe and evaluate a simple dam break problem.
+We simulate and compare three different cases. In the first case we perform and evaluate a simple dam break problem.
 We compare the history of the wave height and velocity at the center location, where the column will be mounted. 
 In the second case we add a square column and compare wave height at various locations in front of and behind the column. 
 For the third case we replace the square column by a cylindrical column and compare the same variables with the experimental results. 
@@ -98,7 +98,8 @@ In the 1st case, wave height and streamwise velocity, U, at different depths, wh
         \begin{figure}[h!]
             \centering
             \includegraphics[width=0.5\textwidth]{../proposal/figures/Diagram_case}
-            \caption{Diagram of experiment apparatus}
+            %\caption{Diagram of experiment apparatus}
+            \caption{Plan view and side view of experiment apparatus}
         \end{figure}
 
 In all cases below, all boundary conditions are set to reflecting walls. 
@@ -131,21 +132,21 @@ GeoClaw also predicts the arrival time for this peak quite well, but overestimat
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_nocolumn}
-        \caption{time from 0 to 18}
+        \caption{Time from 0 to 18}
         \label{fig:waveheight_nocolumn}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_nocolumn_zoomin}
-        \caption{time from 3 to 4}
+        \caption{Time from 3 to 4}
         \label{fig:waveheight_nocolumn_zoomin}
     \end{subfigure}
-    \caption{time history of wave height for case without a column. }
+    \caption{Time history of wave height for case without a column. }
 \end{figure}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.4\textwidth]{./plots/velocityU_nocolumn}
-    \caption{time history of streamwise velocity U for case without a column}
+    \caption{Time history of streamwise velocity U for case without a column}
     \label{fig:velocityU_nocolumn}
 \end{figure}
 Figure \ref{fig:velocityU_nocolumn} shows the time history of the streamwise velocity $u$ from GeoClaw and experiment. 
@@ -172,30 +173,30 @@ This causes the shock to retain its shape as it propagates in case of the shallo
 Thus we see a jump in the result from the shallow water equation, instead of a smooth increase as in the experimental result.
 \par
 The time interval in no-column case is much smaller than that in Figure \ref{fig:waveheight_square_x=11.0}, though data are not measured at exactly the same point for this two plots. 
-This difference indicates that the column gives more resistance to shock waves in experiment than it does in shallow water equation model. 
+This difference indicates that the column gives more resistance to shock waves in the experiment than it does in the shallow water equation model. 
 \par
 A simple analysis to this phenomenon is drawn as below.
-The shallow water equations are essentially a system of hyperbolic PDEs. The solution depends on initial condition along characteristics in the spatio-temporal domain. 
+The shallow water equations are essentially a system of hyperbolic PDEs. The solution depends on initial conditions along characteristics in the spatio-temporal domain. 
 Thus, before the propagating shock arrives, all water downstream the shock has zero velocity. 
 In other words, it does not know there is a column before the shock hits the column.
 This can be verified by checking the history of the wave height measured at exactly the same location, $0.04m$ ahead of the leading edge of the square column, but in different cases, one with a square column and one without.
 This comparison is showed in Figure \ref{fig:waveheight_x11_comparison}. As we expected, there is no difference in arrival time of the shock wave.
 By contrast, the Navier-Stokes equations, which better describe the real physics, are a system of PDEs of parabolic type. 
-In real physics, or in Navier-Stokes equations, when front of the shock wave gets close to the column, water downstream it and upstream column are affected (have nonzero velocity) and resist the comming of wave to some extent. 
-In real world this slows down the propagation speed of the shock wave when it comes close to the column and thus shifts the peak toward later time in the plots.
+In real physics, or in Navier-Stokes equations, when the front of the shock wave gets close to the column, water downstream it and upstream column are affected (have nonzero velocity) and resist the coming of wave to some extent. 
+In the real world this slows down the propagation speed of the shock wave when it comes close to the column and thus shifts the peak toward later time in the plots.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_square_x11}
-        \caption{at x = 11.0 (0.04m ahead of front face of the square column)}
+        \caption{At x = 11.0 (0.04m ahead of front face of the square column)}
         \label{fig:waveheight_square_x=11.0}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_square_x1102}
-        \caption{at x = 11.2 (0.02m ahead of front face of the square column)}
+        \caption{At x = 11.2 (0.02m ahead of front face of the square column)}
         \label{fig:waveheight_square_x=11.02}
     \end{subfigure}
-    \caption{time history of wave height for case with a square column.}
+    \caption{Time history of wave height for the case with a square column.}
 \end{figure}
 %\begin{figure}[h!]
 %    \centering
@@ -210,22 +211,22 @@ The difference between the arrival time of the peak still exists as expected. Af
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_x11_comparison}
-        \caption{comparison between case with a square column and case without one}
+        \caption{Comparison between case with a square column and case without one}
         \label{fig:waveheight_x11_comparison}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_square_x1104_largerTimeRange}
-        \caption{case with a square column with a larger time range at x = 11.04}
+        \caption{Case with a square column with a larger time range at x = 11.04}
         \label{fig:waveheight_square_x=11.04}
     \end{subfigure}
-    \caption{time history of wave height for square column case}
+    \caption{Time history of wave height for square column case}
 \end{figure}
 \par
-Figure \ref{fig:waveheight_square_back} shows history of wave height measured at back face of the square column (at $X = 11.16$). Boundary layer detached near this region thus fluid in this region is difficult to predict. GeoClaw overestimates wave height in this region.  
+Figure \ref{fig:waveheight_square_back} shows history of wave height measured at back face of the square column (at $X = 11.16$). The boundary layer is detached near this region and thus fluid in this region is difficult to predict. GeoClaw overestimates wave height in this region.  
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.4\textwidth]{./plots/waveheight_square_back}
-    \caption{history of wave height measure at back face of the square column}
+    \caption{History of wave height measured at the back face of the square column}
     \label{fig:waveheight_square_back}
 \end{figure}
 %\begin{figure}[h!]
@@ -251,11 +252,11 @@ Figure \ref{fig:waveheight_square_back} shows history of wave height measured at
 
 
 \section{Dam Break with cylindrical column}\label{Sec:Cylinder}
-Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the front point of cylindrical column($0.1m$ ahead of the center of the column).
+Figure \ref{fig:waveheight_cylinder_x=11.0} shows the time history of the wave height measured at $0.04m$ ahead of the front point of a cylindrical column($0.1m$ ahead of the center of the column).
 %Since the way GeoClaw treat a cell partly belong to cylinder and partly belong to tank bottom is to give that cell an average value of topography from cylinder and tank bottom based on area ratio, we get a quasi-circle actually instead of circle. Thus the result in this case does not agree well with the experiment result. 
 %Future test can be conducted by setting a higher level for mesh refinement to get a better circle.
-Similar feature as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
-We can see a decrease in peak value for this case compared with the same plots for square column case. However, this decrease between two cases from GeoClaw is not as large as that between two cases from experiment. 
+Similar features as in the square column case Figure \ref{fig:waveheight_square_x=11.0} can be found.
+We can see a decrease in peak value for this case compared with the same plots for the square column case. However, this decrease between two cases from GeoClaw is not as large as that between two cases from experiment. 
 \par
 Note that diameter of the cylinder is equal to half the length of the square column. 
 Thus in experiment, the square column can block the flow in in a more efficient way than cylinder does, since the cylinder has a smoother shape for the fluid to pass by. 
@@ -272,15 +273,15 @@ But with a even finer mesh, we cannot decrease the peak value, which indicates t
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x11_finer_new}
-        \caption{at x = 11}
+        \caption{At x = 11}
         \label{fig:waveheight_cylinder_x=11.0}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{./plots/waveheight_cylinder_x1104_largerTimeScale}
-        \caption{at x = 11.04}
+        \caption{At x = 11.04}
         \label{fig:waveheight_cylinder_x=11.04}
     \end{subfigure}
-    \caption{time history of wave height for cylindrical column case}
+    \caption{Time history of wave height for cylindrical column case}
 \end{figure}
 \par
 Figure \ref{fig:waveheight_cylinder_back} shows history of wave height measured at back face of the cylinder column (at $X = 11.16$). 
@@ -288,7 +289,7 @@ GeoClaw gives a satisfactory prediction in this region.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.4\textwidth]{./plots/waveheight_cylinder_back}
-    \caption{history of wave height measure at back face of the square column}
+    \caption{History of wave height measure at back face of the square column}
     \label{fig:waveheight_cylinder_back}
 \end{figure}
 
